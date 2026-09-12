@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaFenice 系統架構說明"
+  short_description: "說明核心元件、資料流與 Plugin 邊界；開發任務使用對應開發 skills"
+  default_prompt: "使用 $explain-lafenice-architecture 說明 LaFenice 的核心元件、請求流程與 Core / Plugin 分工。"
