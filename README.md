@@ -141,6 +141,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | Skill | Use it for |
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | Explain architecture, component responsibilities, data flows, and the Core / Plugin boundary. |
+| [`install-lafenice`](install-lafenice/SKILL.md) | Download the latest ZIP by Drive modified time, set up and back up first-install env, or merge settings and verify an upgrade. |
 | [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | Install, configure, back up, restore, and upgrade full-export instances on the same Docker host. |
 
 ## How the skills work together

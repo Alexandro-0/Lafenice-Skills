@@ -140,6 +140,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | Skill | 適用工作 |
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | 架構導覽、元件責任、資料流與 Core / Plugin 邊界說明。 |
+| [`install-lafenice`](install-lafenice/SKILL.md) | 依 Drive 更新時間下載最新 ZIP，初次安裝設定與備份 env，或合併既有設定並驗證更新。 |
 | [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | 安裝、配置、備份、還原與升級同一 Docker host 上的 full-export 實例。 |
 
 ## Skills 如何分工？

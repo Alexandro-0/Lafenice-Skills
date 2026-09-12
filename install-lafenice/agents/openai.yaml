@@ -1,0 +1,4 @@
+interface:
+  display_name: "下載與安裝 LaFenice"
+  short_description: "下載最新 LaFenice、初次安裝設定與備份，或合併 env 更新既有實例"
+  default_prompt: "使用 $install-lafenice，從公開下載資料夾取得更新時間最新的 LaFenice ZIP，判斷初次安裝或更新，完成 env 設定或合併、備份與啟動驗證。"
