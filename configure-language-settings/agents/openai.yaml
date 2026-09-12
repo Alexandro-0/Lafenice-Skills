@@ -1,0 +1,4 @@
+interface:
+  display_name: "Configure Plugin Language"
+  short_description: "Manage plugin Language Pack entries and locales"
+  default_prompt: "Use $configure-language-settings to add localized copy and locale settings for my LaFenice plugin."

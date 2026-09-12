@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "app_env": 1,
+    "code": 2,
+    "collections": 0,
+    "gateway_routes": 2,
+    "language_pack": 3,
+    "menu": 2,
+    "roles": 1,
+    "schedulers": 1
+  },
+  "exported_at": 1784160000000,
+  "plugin": {
+    "name": "lafenice-status-example",
+    "source_plugin": "lafenice-status-example",
+    "version": "1.0.0"
+  },
+  "schema_version": 1,
+  "sections": {
+    "app_env": true,
+    "code": true,
+    "collections": true,
+    "language_pack": true,
+    "menu": true,
+    "roles": true,
+    "schedulers": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy LaFenice Instances"
+  short_description: "Install multiple instances and preserve each .env"
+  default_prompt: "Use $deploy-lafenice-instances to install one or more LaFenice instances and safely preserve each environment configuration."

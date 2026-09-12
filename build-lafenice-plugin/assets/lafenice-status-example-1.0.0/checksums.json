@@ -1,0 +1,15 @@
+{
+    "README.md":  "5f314728cbb6b7694258b8416e37885de1232674b33e209244c623bec20cf7e8",
+    "code/lfx_example_status_api/latest.py":  "1f8b0a242b32d94af27a0b8c942567ce2512b5f7031801015423f30be5f80482",
+    "code/lfx_example_status_page/latest.html":  "23d6281b41374739c1a34a51306bdafbdd734296c8d2d35f4010b5505e20cb7d",
+    "manifest.json":  "e4beed3b0767b5444591236066c50bfb4502f26623863b52c8d991c487c43dba",
+    "payload/app_env.json":  "556b806c71fefca105e6752e8cfe0ee08dbe6c74785e56ddf0b0bde81f7d40aa",
+    "payload/code_modules.json":  "7d6ea0be881f6dca3a890db8d93783633be8398ab86368c3bd9c602b8a10aa0f",
+    "payload/code_versions.json":  "42c7cdd95469933141a73c0ebc0c14c384d744b6b72ef85dbc985a596b0aeaa1",
+    "payload/collections.json":  "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "payload/gateway_routes.json":  "79b39a007bd8568019af29bf6b6ed6414ca4999b157e72939fcfce11f74dcc7a",
+    "payload/language_pack.json":  "4ec1afe0838458c6a104a5c87cfc03e06e07b587d7eaa6ec0702854d6c2d354b",
+    "payload/menu_routes.json":  "b66b9ad2653ffe2f90988a53ae642ac9b93159d365a75ed3f4150f94445567c9",
+    "payload/roles.json":  "180c5d95fbb9d383a9857de13c3c9404f7e4f4044c9385e26a8d47f4da1dc0c1",
+    "payload/schedulers.json":  "6c3a902d17f46ddb5192df57754275ad13c02f30a804547da8280e8b96bc71b8"
+}

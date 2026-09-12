@@ -1,0 +1,4 @@
+interface:
+  display_name: "Configure Plugin Website Entry"
+  short_description: "Configure plugin menus, routes, and Gateway auth"
+  default_prompt: "Use $configure-website-entry to add my LaFenice plugin page to the menu and configure its Gateway authentication."

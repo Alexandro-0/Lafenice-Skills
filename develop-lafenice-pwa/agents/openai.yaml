@@ -1,0 +1,4 @@
+interface:
+  display_name: "Develop LaFenice PWA"
+  short_description: "Build and verify LaFenice installable or offline PWAs"
+  default_prompt: "Use $develop-lafenice-pwa to assess or implement the requested LaFenice PWA installation and offline capabilities."

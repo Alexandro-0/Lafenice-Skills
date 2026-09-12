@@ -1,0 +1,21 @@
+[
+  {
+    "interval_seconds": 300,
+    "name": "lfx-example-status-probe",
+    "plugin": "lafenice-status-example",
+    "repeat": true,
+    "roles": [
+      "admin"
+    ],
+    "schedule_type": "interval",
+    "status": "active",
+    "target": {
+      "handler": "services.generated.lfx_example_status_api:handle",
+      "payload": {
+        "source": "scheduler"
+      },
+      "type": "handler"
+    },
+    "timezone": "Asia/Taipei"
+  }
+]

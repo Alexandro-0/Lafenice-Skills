@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaFenice Plugin 開發流程"
+  short_description: "分階段規劃、續作並同步 LaFenice Plugin 文件與實作"
+  default_prompt: "使用 $orchestrate-lafenice-plugin-lifecycle，從目前狀態規劃或繼續 LaFenice Plugin 開發，並維持需求、設計、實作與測試的一致性。"

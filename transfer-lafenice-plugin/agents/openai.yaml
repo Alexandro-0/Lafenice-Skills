@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transfer LaFenice Plugin"
+  short_description: "Export, inspect, and import plugin packages safely"
+  default_prompt: "Use $transfer-lafenice-plugin to export or import a LaFenice plugin safely."

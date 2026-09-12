@@ -1,0 +1,16 @@
+{
+  "lfx-example-status-api": {
+    "GET": {
+      "auth_required": true,
+      "handler": "services.generated.lfx_example_status_api:handle",
+      "plugin": "lafenice-status-example"
+    }
+  },
+  "lfx-example-status-page": {
+    "GET": {
+      "auth_required": false,
+      "handler": "services.generated_html.lfx_example_status_page:handle",
+      "plugin": "lafenice-status-example"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Get LaFenice Plugin Access"
+  short_description: "Verify project access with a role: ai account"
+  default_prompt: "Use $get-plugin-edit-access to authenticate to my LaFenice project with a role: ai account."

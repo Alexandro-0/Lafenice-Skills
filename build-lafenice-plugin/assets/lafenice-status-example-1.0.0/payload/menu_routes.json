@@ -1,0 +1,28 @@
+[
+  {
+    "children": [
+      {
+        "auth_require": true,
+        "enabled": true,
+        "key": "lfxExampleStatusPage",
+        "label": "Status Dashboard",
+        "path": "/lfx-example-status-page",
+        "plugin": "lafenice-status-example",
+        "roles": [
+          "admin",
+          "lfx-example-status-viewer"
+        ],
+        "sort": 10
+      }
+    ],
+    "enabled": true,
+    "key": "lfxExampleStatus",
+    "label": "Example Status",
+    "plugin": "lafenice-status-example",
+    "roles": [
+      "admin",
+      "lfx-example-status-viewer"
+    ],
+    "sort": 90
+  }
+]

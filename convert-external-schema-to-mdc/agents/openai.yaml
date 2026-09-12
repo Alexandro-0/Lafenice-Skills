@@ -1,0 +1,4 @@
+interface:
+  display_name: "Convert External Schema to MDC"
+  short_description: "Map external data structures into MDC-ready drafts"
+  default_prompt: "Use $convert-external-schema-to-mdc to transform this external data structure into an MDC-ready draft with traceable mappings."

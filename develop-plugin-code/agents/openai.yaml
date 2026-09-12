@@ -1,0 +1,4 @@
+interface:
+  display_name: "Develop LaFenice Plugin Code"
+  short_description: "Build advanced plugin Python and HTML modules"
+  default_prompt: "Use $develop-plugin-code to implement and test advanced code modules in my LaFenice plugin."

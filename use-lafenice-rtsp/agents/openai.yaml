@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaFenice RTSP 媒體整合"
+  short_description: "整合 RTSP 攝影機來源、即時監看、錄影回放與 Plugin 應用"
+  default_prompt: "使用 $use-lafenice-rtsp，透過 LaFenice Media Core 為 Plugin 整合攝影機即時監看與錄影回放。"

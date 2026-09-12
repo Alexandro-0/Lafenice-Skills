@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build LaFenice Plugin"
+  short_description: "Build production plugins from deployed APIs"
+  default_prompt: "Use $build-lafenice-plugin to build and test my production LaFenice plugin, then return its export archive and requirements document."

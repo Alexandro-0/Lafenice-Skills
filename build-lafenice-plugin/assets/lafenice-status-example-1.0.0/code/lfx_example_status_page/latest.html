@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Example Status</title>
+  <script>
+    (() => {
+      const tokenMap = { bg:'--wash', surface:'--paper', surfaceSoft:'--panel', surfaceStrong:'--surface-strong', text:'--ink', muted:'--muted', line:'--line', lineStrong:'--line-strong', accent:'--accent', accentStrong:'--accent-2', accentSoft:'--accent-soft', activeText:'--accent-ink', red:'--danger', shadow:'--shadow' }
+      const apply = context => {
+        if (!context || typeof context !== 'object') return
+        const theme = context.theme && typeof context.theme === 'object' ? context.theme : {}
+        Object.entries(tokenMap).forEach(([token, property]) => { if (theme[token]) document.documentElement.style.setProperty(property, theme[token]) })
+        const themeMode = String(context.themeMode || '')
+        if (themeMode) {
+          document.documentElement.style.colorScheme = themeMode.toLowerCase().includes('dark') ? 'dark' : 'light'
+          document.documentElement.dataset.theme = themeMode
+        }
+      }
+      try {
+        const params = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+        const encoded = params.get('lf-runtime')
+        if (encoded) {
+          const context = JSON.parse(decodeURIComponent(encoded))
+          if (context?.type === 'lafenice:runtime-context:init') apply(context)
+        } else {
+          apply(JSON.parse(sessionStorage.getItem('lafenice:example-status:presentation') || 'null'))
+        }
+      } catch {}
+    })()
+  </script>
+  <style>
+    :root { color-scheme:light; --ink:#17211b; --muted:#657068; --line:#dce3dc; --line-strong:#aebbb1; --paper:#fff; --wash:#f3f6f3; --panel:#f8fbf9; --surface-strong:#e7ece7; --accent:#206b4b; --accent-2:#174e39; --accent-soft:#e5f2eb; --accent-ink:#fff; --danger:#a33b32; --shadow:0 22px 60px rgb(23 33 27 / .11); font-family:"Segoe UI Variable Text","Noto Sans TC","Microsoft JhengHei",Inter,ui-sans-serif,system-ui,sans-serif }
+    * { box-sizing:border-box }
+    body { min-height:100vh; margin:0; background-color:var(--wash); background-image:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 30%,transparent) 0 1.25px,transparent 1.75px),linear-gradient(90deg,transparent 23px,color-mix(in srgb,var(--accent) 7%,transparent) 24px,transparent 25px),linear-gradient(0deg,transparent 23px,color-mix(in srgb,var(--accent) 7%,transparent) 24px,transparent 25px),radial-gradient(circle at 88% -15%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 34%),radial-gradient(circle at -8% 78%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 28%); background-position:-1px -1px,0 0,0 0,0 0,0 0; background-size:96px 96px,96px 96px,96px 96px,100% 100%,100% 100%; background-attachment:fixed; color:var(--ink); transition:background-color .25s ease,color .25s ease }
+    button { font:inherit; cursor:pointer }
+    button:disabled { cursor:wait; opacity:.55 }
+    .app { min-height:100vh; padding:clamp(18px,3vw,42px) }
+    .shell { max-width:1320px; margin:auto }
+    .hero,.panel { background:color-mix(in srgb,var(--paper) 96%,transparent); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); backdrop-filter:blur(18px) }
+    .hero { position:relative; display:flex; align-items:end; justify-content:space-between; gap:24px; padding:30px 32px; margin-bottom:18px; overflow:hidden }
+    .hero::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 15%,transparent)); box-shadow:0 0 24px var(--accent) }
+    .eyebrow { margin:0 0 8px; color:var(--accent); font:800 .7rem/1.2 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.18em; text-transform:uppercase }
+    h1 { margin:0; max-width:900px; font-family:"Segoe UI Variable Display","Noto Sans TC","Microsoft JhengHei",ui-sans-serif,system-ui,sans-serif; font-size:clamp(2rem,4.6vw,3.7rem); font-weight:760; line-height:1.02; letter-spacing:-.045em; text-wrap:balance }
+    .subtitle { margin:10px 0 0; color:var(--muted) }
+    .actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap }
+    .button { min-height:40px; border:1px solid var(--line); border-radius:8px; padding:0 15px; background:var(--paper); color:var(--ink); font-weight:750; transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease }
+    .button:hover:not(:disabled) { transform:translateY(-1px); border-color:var(--line-strong); background:var(--panel) }
+    .button.primary { border-color:var(--accent); background:var(--accent); color:var(--accent-ink); box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 20%,transparent) }
+    .table-wrap { width:100%; min-height:180px; max-height:60dvh; overflow:auto; overscroll-behavior:contain; position:relative }
+    table { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0 }
+    th,td { padding:13px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle }
+    th { color:var(--muted); background:var(--panel); font:800 .73rem/1.2 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.07em; text-transform:uppercase; white-space:nowrap }
+    thead { position:sticky; top:0; z-index:2 }
+    .updated-column { width:220px; min-width:220px; padding-inline:10px; white-space:nowrap }
+    td.updated-column { font-variant-numeric:tabular-nums }
+    tbody tr { transition:background .16s ease }
+    tbody tr:hover { background:color-mix(in srgb,var(--accent-soft) 58%,transparent) }
+    .value { font-weight:700 }
+    .muted,.empty { color:var(--muted) }
+    .empty { padding:60px 22px; text-align:center }
+    .status { position:fixed; right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); z-index:2147483647; width:max-content; max-width:min(460px,calc(100vw - 32px)); padding:13px 16px 13px 18px; border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line)); border-left:4px solid var(--accent); border-radius:10px; box-shadow:var(--shadow); background:color-mix(in srgb,var(--paper) 96%,transparent); color:var(--ink); font-size:.9rem; font-weight:750; line-height:1.4; overflow-wrap:anywhere; pointer-events:none }
+    .status.error { border-color:color-mix(in srgb,var(--danger) 46%,var(--line)); border-left-color:var(--danger); background:color-mix(in srgb,var(--paper) 92%,var(--danger) 8%) }
+    .status[hidden] { display:none }
+    @media (max-width:720px) {
+      .app { padding:8px }
+      .hero { align-items:start; flex-direction:column; gap:18px; padding:20px 20px 18px; margin-bottom:10px }
+      .hero .actions { width:100% }
+      .hero .actions .button { flex:1 }
+      h1 { font-size:clamp(1.9rem,11vw,2.8rem) }
+      .table-wrap { max-height:62dvh }
+      .status { left:max(10px,env(safe-area-inset-left)); right:max(10px,env(safe-area-inset-right)); bottom:max(10px,env(safe-area-inset-bottom)); width:auto; max-width:none; padding:12px 14px }
+    }
+  </style>
+</head>
+<body>
+  <main class="app"><div class="shell">
+    <header class="hero">
+      <div><p class="eyebrow" id="eyebrow">Example plugin</p><h1 id="title">Example System Status</h1><p class="subtitle" id="subtitle">Waiting for App Shell context…</p></div>
+      <div class="actions"><button class="button primary" id="refresh" type="button">Refresh</button></div>
+    </header>
+    <section class="panel" aria-live="polite">
+      <div class="table-wrap"><table><thead><tr><th id="propertyHeading">Property</th><th id="valueHeading">Value</th><th id="updatedHeading" class="updated-column">Updated at</th></tr></thead><tbody id="statusRows"><tr><td class="empty" colspan="3">Waiting for App Shell context…</td></tr></tbody></table></div>
+    </section>
+  </div></main>
+  <div class="status" id="status" hidden></div>
+  <script>
+    'use strict'
+
+    const state = { apiBaseUrl:'', accessToken:'', roles:[], locale:'en-US', messages:{}, languagePack:{}, theme:{}, themeMode:'light', loaded:false }
+    const els = { eyebrow:document.querySelector('#eyebrow'), title:document.querySelector('#title'), subtitle:document.querySelector('#subtitle'), refresh:document.querySelector('#refresh'), propertyHeading:document.querySelector('#propertyHeading'), valueHeading:document.querySelector('#valueHeading'), updatedHeading:document.querySelector('#updatedHeading'), rows:document.querySelector('#statusRows'), status:document.querySelector('#status') }
+
+    function localeField() {
+      const locale = String(state.locale || 'en-US')
+      if (locale.toLowerCase() === 'zh-tw') return 'name'
+      return locale.replace(/-([a-zA-Z])/g, (_, letter) => letter.toUpperCase())
+    }
+
+    function languageText(key, fallback) {
+      const pack = state.languagePack?.items && typeof state.languagePack.items === 'object' ? state.languagePack.items : state.languagePack
+      const entry = pack?.[key] || {}
+      return entry[localeField()] || entry.enUS || entry.name || fallback
+    }
+
+    function fallbackText(key, fallback) {
+      const localized = languageText(key, '')
+      if (localized) return localized
+      const copy = {
+        eyebrow:state.locale.toLowerCase().startsWith('zh') ? '範例 plugin' : 'Example plugin',
+        title:state.locale.toLowerCase().startsWith('zh') ? '範例系統狀態' : 'Example System Status',
+        refresh:state.locale.toLowerCase().startsWith('zh') ? '重新整理' : 'Refresh',
+        property:state.locale.toLowerCase().startsWith('zh') ? '屬性' : 'Property',
+        value:state.locale.toLowerCase().startsWith('zh') ? '值' : 'Value',
+        updatedAt:state.locale.toLowerCase().startsWith('zh') ? '更新時間' : 'Updated at',
+        loading:state.locale.toLowerCase().startsWith('zh') ? '正在載入…' : 'Loading…',
+        waiting:state.locale.toLowerCase().startsWith('zh') ? '等待 App Shell context…' : 'Waiting for App Shell context…',
+        healthy:state.locale.toLowerCase().startsWith('zh') ? '健康' : 'Healthy',
+        authenticated:state.locale.toLowerCase().startsWith('zh') ? '已驗證' : 'Authenticated',
+        anonymous:state.locale.toLowerCase().startsWith('zh') ? '匿名' : 'Anonymous',
+        failed:state.locale.toLowerCase().startsWith('zh') ? '狀態讀取失敗' : 'Status load failed',
+      }
+      return copy[key] || fallback
+    }
+
+    function applyPresentationContext(context) {
+      if (!context || typeof context !== 'object') return
+      if (context.locale) state.locale = String(context.locale)
+      if (context.messages && typeof context.messages === 'object') state.messages = context.messages
+      if (context.languagePack && typeof context.languagePack === 'object') state.languagePack = context.languagePack
+      if (context.themeMode) state.themeMode = String(context.themeMode)
+      if (context.theme && typeof context.theme === 'object') state.theme = context.theme
+    }
+
+    function restoreInitialRuntimeContext() {
+      try {
+        const params = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+        const encoded = params.get('lf-runtime')
+        if (encoded) applyPresentationContext(JSON.parse(decodeURIComponent(encoded)))
+        else applyPresentationContext(JSON.parse(sessionStorage.getItem('lafenice:example-status:presentation') || 'null'))
+      } catch {}
+    }
+
+    function savePresentationContext() {
+      try { sessionStorage.setItem('lafenice:example-status:presentation', JSON.stringify({ locale:state.locale, messages:state.messages, languagePack:state.languagePack, themeMode:state.themeMode, theme:state.theme })) } catch {}
+    }
+
+    function applyTheme() {
+      const tokenMap = { bg:'--wash', surface:'--paper', surfaceSoft:'--panel', surfaceStrong:'--surface-strong', text:'--ink', muted:'--muted', line:'--line', lineStrong:'--line-strong', accent:'--accent', accentStrong:'--accent-2', accentSoft:'--accent-soft', activeText:'--accent-ink', red:'--danger', shadow:'--shadow' }
+      Object.entries(tokenMap).forEach(([token, property]) => { if (state.theme[token]) document.documentElement.style.setProperty(property, state.theme[token]) })
+      document.documentElement.style.colorScheme = state.themeMode.toLowerCase().includes('dark') ? 'dark' : 'light'
+      document.documentElement.dataset.theme = state.themeMode
+    }
+
+    function renderCopy() {
+      document.documentElement.lang = state.locale.toLowerCase().startsWith('zh') ? 'zh-Hant' : state.locale
+      els.eyebrow.textContent = fallbackText('eyebrow', 'Example plugin')
+      els.title.textContent = languageText('lfxExampleStatus.title', fallbackText('title', 'Example System Status'))
+      els.refresh.textContent = languageText('lfxExampleStatus.refresh', fallbackText('refresh', 'Refresh'))
+      els.propertyHeading.textContent = fallbackText('property', 'Property')
+      els.valueHeading.textContent = fallbackText('value', 'Value')
+      els.updatedHeading.textContent = fallbackText('updatedAt', 'Updated at')
+      if (!state.loaded) els.subtitle.textContent = fallbackText('waiting', 'Waiting for App Shell context…')
+    }
+
+    function setStatus(message, isError = false) {
+      els.status.textContent = message
+      els.status.classList.toggle('error', isError)
+      els.status.hidden = !message
+    }
+
+    function renderRows(item) {
+      const updatedAt = item.updated_at_format || item.updated_at || '—'
+      const rows = [
+        ['status', item.status || fallbackText('healthy', 'Healthy')],
+        ['authenticated', item.authenticated ? fallbackText('authenticated', 'Authenticated') : fallbackText('anonymous', 'Anonymous')],
+        ['plugin', item.plugin || '—'],
+      ]
+      const fragment = document.createDocumentFragment()
+      rows.forEach(([label, value]) => {
+        const row = document.createElement('tr')
+        const property = document.createElement('th'); property.scope = 'row'; property.textContent = label
+        const valueCell = document.createElement('td'); valueCell.className = 'value'; valueCell.textContent = String(value)
+        const updatedCell = document.createElement('td'); updatedCell.className = 'updated-column'; updatedCell.textContent = String(updatedAt)
+        row.append(property, valueCell, updatedCell); fragment.append(row)
+      })
+      els.rows.replaceChildren(fragment)
+    }
+
+    async function apiRequest(path, init = {}) {
+      const headers = { Accept:'application/json', ...(init.body ? {'Content-Type':'application/json'} : {}), ...(state.accessToken ? {Authorization:`Bearer ${state.accessToken}`} : {}) }
+      const response = await fetch(`${state.apiBaseUrl}/${String(path).replace(/^\/+/, '')}`, { ...init, headers:{ ...headers, ...init.headers } })
+      const text = await response.text()
+      let data = {}
+      try { data = text ? JSON.parse(text) : {} } catch {}
+      if (!response.ok) throw Object.assign(new Error(data.error?.message || data.detail || `Request failed (${response.status})`), { status:response.status, details:data.error || data })
+      return data
+    }
+
+    async function loadStatus() {
+      if (!state.apiBaseUrl) return
+      els.refresh.disabled = true
+      els.subtitle.textContent = fallbackText('loading', 'Loading…')
+      try {
+        const data = await apiRequest('lfx-example-status-api')
+        state.loaded = true
+        renderRows(data.item || {})
+        els.subtitle.textContent = languageText('lfxExampleStatus.healthy', fallbackText('healthy', 'Healthy'))
+        setStatus('')
+      } catch (error) {
+        els.subtitle.textContent = fallbackText('failed', 'Status load failed')
+        const errorRow = document.createElement('tr')
+        const errorCell = document.createElement('td')
+        errorCell.className = 'empty'; errorCell.colSpan = 3; errorCell.textContent = error.message
+        errorRow.append(errorCell)
+        els.rows.replaceChildren(errorRow)
+        setStatus(error.message, true)
+      } finally {
+        els.refresh.disabled = false
+      }
+    }
+
+    window.addEventListener('message', event => {
+      if (event.source !== window.parent || event.data?.type !== 'lafenice:runtime-context') return
+      const context = event.data
+      state.apiBaseUrl = String(context.apiBaseUrl || state.apiBaseUrl).replace(/\/$/, '')
+      state.accessToken = context.accessToken || ''
+      state.roles = Array.isArray(context.roles) ? context.roles.map(String) : []
+      applyPresentationContext(context)
+      savePresentationContext()
+      renderCopy()
+      applyTheme()
+      loadStatus()
+    })
+
+    restoreInitialRuntimeContext()
+    renderCopy()
+    applyTheme()
+    els.refresh.addEventListener('click', () => { loadStatus().catch(error => setStatus(error.message, true)) })
+    window.parent.postMessage({ type:'lafenice:runtime-context:request' }, '*')
+  </script>
+</body>
+</html>

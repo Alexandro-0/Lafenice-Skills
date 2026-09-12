@@ -1,0 +1,10 @@
+[
+  {
+    "app": "lafenice",
+    "description": "Non-secret example refresh interval.",
+    "name": "lfx_example_status.refresh_seconds",
+    "plugin": "lafenice-status-example",
+    "value": "300",
+    "value_mode": "plain"
+  }
+]

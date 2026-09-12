@@ -1,0 +1,18 @@
+[
+  {
+    "code_type": "py",
+    "description": "Authenticated status endpoint and scheduled probe example.",
+    "group": "example-status",
+    "module_key": "lfx_example_status_api",
+    "plugin": "lafenice-status-example",
+    "status": "active"
+  },
+  {
+    "code_type": "html",
+    "description": "App Shell integrated status page example.",
+    "group": "example-status",
+    "module_key": "lfx_example_status_page",
+    "plugin": "lafenice-status-example",
+    "status": "active"
+  }
+]

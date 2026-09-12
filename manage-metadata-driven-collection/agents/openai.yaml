@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage LaFenice MDC Collections"
+  short_description: "Create and edit MDC with safe file upload mapping"
+  default_prompt: "Use $manage-metadata-driven-collection to create or safely update a LaFenice MDC collection, including correctly modeled file uploads and generated runtime verification."

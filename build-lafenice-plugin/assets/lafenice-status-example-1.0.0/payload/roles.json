@@ -1,0 +1,9 @@
+[
+  {
+    "description": "May view the example status plugin.",
+    "label": "Status Viewer",
+    "name": "lfx-example-status-viewer",
+    "plugin": "lafenice-status-example",
+    "system": false
+  }
+]

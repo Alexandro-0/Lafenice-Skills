@@ -1,0 +1,20 @@
+[
+  {
+    "enUS": "Example System Status",
+    "key": "lfxExampleStatus.title",
+    "name": "系統狀態範例",
+    "plugin": "lafenice-status-example"
+  },
+  {
+    "enUS": "Refresh",
+    "key": "lfxExampleStatus.refresh",
+    "name": "重新整理",
+    "plugin": "lafenice-status-example"
+  },
+  {
+    "enUS": "Healthy",
+    "key": "lfxExampleStatus.healthy",
+    "name": "運作正常",
+    "plugin": "lafenice-status-example"
+  }
+]

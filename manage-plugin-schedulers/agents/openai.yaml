@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Plugin Schedulers"
+  short_description: "Manage plugin cron, interval, date, and startup jobs"
+  default_prompt: "Use $manage-plugin-schedulers to create or update a scheduler for my LaFenice plugin."

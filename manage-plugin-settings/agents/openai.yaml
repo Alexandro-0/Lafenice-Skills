@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Plugin Settings"
+  short_description: "Manage plugin roles and App Env settings safely"
+  default_prompt: "Use $manage-plugin-settings to configure custom roles and App Env records for my LaFenice plugin."
