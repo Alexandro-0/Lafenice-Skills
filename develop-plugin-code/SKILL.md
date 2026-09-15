@@ -252,6 +252,10 @@ Version test 用來驗證指定 source/version 的執行結果，但不要假設
 
 ## 新增或修改 HTML 程式碼
 
+HTML version 儲存會同步 upsert 網頁入口。未帶 `gateway.preserve_existing: true` 時，既有 route 可能被預設值覆蓋：未指定 menu key/label 會改成 `codePage.*` 與模組名稱，sort 會變成 10，auth_require、roles、enabled 也會被重置。即使提供 menu key/label，仍不能保住排序與權限。
+
+更新既有 HTML 前，讀 latest version 的 Gateway 設定及 `/access-control`，依實際 endpoint/path 找到 route，保存 key、label、分類位置、sort、auth_require、roles、enabled、plugin。每次儲存（包括 MDC 重產後重新套用客製 source）都明確帶 `gateway.preserve_existing: true`，沿用既有 endpoint；不要省略 gateway 並期待繼承上一版本。若填 menu key/label，使用既有 route 值。下例值僅供新頁面使用。
+
 建立或更新 HTML module：
 
 ```http
@@ -271,6 +275,7 @@ Content-Type: application/json
     "endpoint": "orders-page-history",
     "methods": ["GET"],
     "auth_required": false,
+    "preserve_existing": true,
     "menu_key": "collection.orders.history",
     "menu_label": "訂單異動紀錄",
     "plugin": "sales"
@@ -279,6 +284,10 @@ Content-Type: application/json
 ```
 
 HTML 儲存後瀏覽器 route 通常是 `/{PROJECT_ROOT}/{endpoint}`，iframe source 是 `{apiBaseUrl}/{endpoint}`。HTML page 仍應由 runtime context 帶入 token 呼叫受保護的 API。
+
+儲存後重新 GET `/access-control`，確認既有 route 的 key、label、path、分類、sort、auth_require、roles、enabled、plugin 均保留，並從 App Shell 驗證名稱的 Language Pack 參照與排序。`preserve_existing` 也會保留 Gateway mapping；若實際 handler 不同，先核對需求，不以移除旗標強制覆寫。使用者要求調整入口或 Gateway 時，另依 `configure-website-entry` 精準修改該項設定。
+
+若 deployed backend 拒絕保留旗標或仍重置選單，停止後續儲存並回報 compatibility gap。還原本次操作造成的差異時，重新讀最新 menu/version，只合併受影響欄位，不可直接回寫舊整棵 menu；無法安全還原時列出未恢復項目。
 
 ## 寫入 Language Pack
 

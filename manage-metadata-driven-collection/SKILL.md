@@ -72,7 +72,7 @@ PATCH 是完整 replacement，不是 partial patch：
 
 6. `PATCH /collection-config/{key}` 送完整 config，讀回確認 version 只增加 1 且目標 diff 已生效。
 7. 若回 `COLLECTION_CONFIG_VERSION_CONFLICT`，重新 GET 最新 item、重新套用同一 semantic diff、再驗證與 PATCH；不要重送 stale payload。
-8. 只有 metadata 會影響 runtime 且使用者要更新 runtime 時才重產。先檢查四個 generated module 是否已有自訂 latest version；有自訂時，先保存 latest content 與差異，重產基線後重新套用並完整回歸。
+8. 先判斷既有 runtime 是否會動態讀取變更後的 metadata；可直接生效時不要重產。只有需要新的 template/inline code 行為時才重產，並依 [references/remote-operations.md](references/remote-operations.md) 的 Generate Code 流程保存客製 source、既有選單設定與各語系翻譯，重產後重新套用並比對。
 
 ## 評估變更風險
 
@@ -144,7 +144,9 @@ MDC document 只儲存 File API `id`，不儲存 URL、local path、base64 或 o
 - 管理 page 會為 visible `type: file` 欄位產生選檔、MIME/size validation、File API multipart upload、既有 id 保留/移除與 id/id-array 回寫。舊 generated page 必須重新產生 `data_management` 才取得新版行為。
 - 不得只為 `tenant_mode: required` 重產。標準既有 Python modules 透過目前 Gateway 與 core helpers 自動取得 scope；只有新版 inline HTML/template 行為確實必要，或相容性審核發現 plugin 自行繞過 scope 時才重產或手動修正。
 - Generate Code 會新增 Code Registry latest versions，但保留已存在的 Gateway method mapping；成功 response 不等於 runtime 驗收成功。
+- 重產前保存受影響 route 的 key、label、path、分類位置、sort、auth_require、roles、enabled、plugin；後續重存客製 HTML 也必須帶 `gateway.preserve_existing: true` 與既有 endpoint。只修改 MDC/source 不代表授權更改選單名稱、排序或權限。
 - 產碼只自動 upsert collection 與 history page label。column、option、relation 與額外 locales 使用 `configure-language-settings` 補齊。
+- 此 label upsert 會覆寫既有各語系文字；依 remote-operations 保存並還原原翻譯，只套用使用者要求的文案差異。不可只在產碼後重新猜測翻譯。
 - metadata 已足夠時不要手寫 Python/HTML。只有 calculation、aggregation、integration、特殊 workflow 或 generator compatibility gap 才使用 `develop-plugin-code`。
 
 ## 完成驗證
@@ -158,6 +160,7 @@ MDC document 只儲存 File API `id`，不儲存 URL、local path、base64 或 o
 - reference/embedded option 能載入，has-many link 與 scoped writes 正確。
 - 每個 file candidate 都有明確 `file` 或 non-file 判定；file 欄位已驗證 picker、MIME/size/visibility、File API multipart request、record 只存 id/id array、既有值保留/替換/移除、required、失敗清理與預覽/下載權限。若重新產碼後仍只有 id 輸入，記錄實際 module/route 與 compatibility gap。
 - selected generated modules、Gateway methods、runtime API 與 App Shell page 可用。
+- Generate Code 與每次客製 HTML 儲存後，既有 route 的名稱參照、分類、sort 與權限設定沒有非預期變更；原有各語系翻譯已還原，側邊欄以既有 route key 正確解析 Language Pack。
 - create/edit/delete、required/type validation、`401/403/409/422` 的主要路徑符合預期。
 - 沒有在檔案、console、URL、browser storage 或回覆洩露 secret。
 

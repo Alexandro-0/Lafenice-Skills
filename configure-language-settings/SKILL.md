@@ -319,7 +319,16 @@ function applyRuntimeContext(context) {
 }
 ```
 
-`POST /collection-config/generate-code` 會呼叫 backend helper，為 collection label 建立或更新 Language Pack item，並把目前所有既有 locale 欄位填入同一個值。若 plugin 需要更精準的各語系翻譯，generate-code 後再用 `PATCH /language-pack/{key}` 覆蓋各語系欄位。
+`POST /collection-config/generate-code` 會為選定 group 的 collection/history label 建立或更新 Language Pack item，並把 `name` 與所有既有 locale 欄位填入同一個 display/history display 值。既有翻譯會被覆寫，即使 route key 未變，側邊欄名稱仍可能重置。
+
+需要 Generate Code 時：
+
+1. 產碼前 exact-key GET 受影響的 `collection.i18n.label_key` 和/或 `{collection_label_key}.history`，保存既有 `name`、所有 locale 欄位與 plugin；404 記為新 key，其他讀取失敗先停止產碼。不得只保存當前語系或事後憑記憶重建翻譯。
+2. 產碼後讀回，以原翻譯加上使用者明確要求的文案差異，透過 `PATCH /language-pack/{key}` 還原既有 item 的可寫欄位；保留既有 plugin，省略 id、timestamps 等唯讀欄位。修改 MDC display 不代表授權把所有語系翻譯改成同一值。新增 key 才依需求補初始翻譯。
+3. 若讀回出現無法解釋的並行變更，停止該筆覆寫並回報差異；若還原失敗，保留快照、列出未恢復 key/locales，不宣稱完成。
+4. 再次 GET 確認原有各語系值已保留，並在 App Shell 驗證目標語系名稱。Generate Code 可能新增原 item 沒有的 locale 欄位；API 無法刪除欄位，應辨識並回報這些新增值，不宣稱資料逐欄完全還原。
+
+若翻譯資料正確但側邊欄仍顯示模組名稱，檢查 `/access-control` 的 route key 是否被 HTML 儲存改成 `codePage.*`。先依 `develop-plugin-code` / `configure-website-entry` 修復本次造成的 route 差異，不要為錯誤 key 新增重複翻譯來掩蓋問題。只做 metadata PATCH 或 HTML source 儲存而未 Generate Code 時，不需為此重新寫入所有語系。
 
 ## 錯誤與限制
 

@@ -142,8 +142,16 @@ Gateway route existence 以 endpoint + method 判斷；既有 mapping 會 preser
 
 1. 把四個 endpoint 轉成 module keys（小寫；非 `[a-z0-9_]` 轉 `_`；去頭尾 `_`）。
 2. 讀 module latest versions；辨認是否有 generated baseline 之後的自訂 code。
-3. 有自訂時保存 latest content 與 diff，重產後重新套用、存成新 version。
-4. 測 Code Registry version 與實際 Gateway route；不要只看 `validation.ok` 或 generate response。
+3. 有自訂時保存 latest content 與 diff。GET `/access-control`，依選定 page endpoint 的 path 在完整 menu tree 中找到既有 route，保存 key、label、path、分類位置、sort、auth_require、roles、enabled、plugin。不要假設 route 位於 Code Pages，或以 MDC label key 取代既有自訂 route key。
+4. 對選定 group 的 Language Pack key 做 exact-key GET：data management 使用 collection 的 `i18n.label_key`，history 使用 `{collection_label_key}.history`。保存既有 `name`、所有 locale 欄位與 plugin，並記錄真正不存在的 key；非 404 讀取失敗時先停止產碼，避免失去還原基線。此 upsert 會把既有各語系都改成 display/history display，不只是補缺值。
+
+產碼後：
+
+1. 依 `configure-language-settings` 讀回受影響 items，以保存的翻譯加上使用者要求的文案差異 PATCH 回去；保留既有 plugin，不傳 id、timestamps 等唯讀欄位。新 key 才補初始翻譯。若遇到無法解釋的並行變更，先停止該筆寫入並回報差異，不用舊快照蓋掉他人修改。
+2. 有客製 source 時重新套用 diff、存成新 version。重存 HTML 必須沿用既有 Gateway endpoint，明確帶 `gateway.preserve_existing: true`；若填 `menu_key`、`menu_label`，沿用快照中的值。該旗標不會由上一個 generated version 自動繼承。
+3. 在 Generate Code 及每次 HTML 儲存後 GET `/access-control`，比對既有 route 上述欄位與分類位置；sort 必須保留原數值，不能重編序號或全設為 10。同步確認 Language Pack 原有翻譯與使用者要求的文案差異。
+4. 若保留旗標被 deployed backend 拒絕或仍出現選單重置，停止後續 HTML 儲存，記錄 compatibility gap。修復本次操作造成的差異時，依 `configure-website-entry` 重新 GET 最新 menu/version，只合併本次受影響欄位；不要用舊整棵 menu 覆蓋並行更新。無法安全還原時明確回報未恢復項目。
+5. 測 Code Registry version、實際 Gateway route 與 App Shell 側邊欄名稱/排序；不要只看 `validation.ok` 或 generate response。語系還原失敗不得宣稱重產流程完成。
 
 舊 page 不會因 PATCH file metadata 自動取得 picker。新增/修改 file 欄位後必須重產 `data_management`，再以 create/edit modal 與 `POST {ApiBase}/files` 的實際 network request 驗收；若仍是 id 文字 input，檢查 route 是否保留舊或自訂 mapping。
 
