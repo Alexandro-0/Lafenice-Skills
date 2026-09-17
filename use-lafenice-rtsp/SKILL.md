@@ -1,7 +1,7 @@
 ---
 name: use-lafenice-rtsp
 description: >-
-  在 LaFenice Plugin 中使用 RTSP/RTSPS 攝影機串流、即時監看、錄影查詢與回放。適用於媒體來源設定、監控牆、設備影像頁面、事件回放及 Media Core 連線排錯；透過既有 Media Core API 與 Browser SDK 整合。
+  在 LaFenice Plugin 中使用 RTSP/RTSPS 攝影機串流、即時監看、錄影查詢與回放。適用於媒體來源設定、網路白名單設定與檢查、加入白名單仍無法連線、監控牆及 Media Core 排錯；透過既有 Media Core API 與 Browser SDK 整合。
 ---
 
 # LaFenice RTSP 使用與應用
@@ -19,9 +19,10 @@ LaFenice Media Core 負責攝影機連線、加密帳密、MediaMTX 串流、錄
 
 - 實作來源設定、Live、Playback 或業務頁面：讀 [references/plugin-integration.md](references/plugin-integration.md)。
 - 啟用 MediaMTX、測試串流或排查連線：讀 [references/operations.md](references/operations.md)。
+- 設定／檢查攝影機白名單，或處理「已加入白名單仍無法連線」：讀 [references/network-allowlist.md](references/network-allowlist.md)。
 - 修改 Code Registry、Gateway 或 MDC 時，再讀相鄰的 `develop-plugin-code`、`get-plugin-edit-access` 或 `manage-metadata-driven-collection` skill 中與任務相關的指引。
 
-本 skill 位於專案 `plugin_skills/use-lafenice-rtsp`。有原始碼時，以專案根目錄下的 `LaFeniceBackend/docs/media-core.md`、`services/media_core/{router,models,config,security,provider}.py`（位於 Backend）及 `LaFeniceFrontend/src/media/mediaClient.ts` 核對版本。只有遠端環境時，先查 `/media/capabilities` 與部署版本可用的 API 文件；不要假設遠端已包含本機功能。
+本 skill 位於專案 `lfx_plugin_skills/use-lafenice-rtsp`。有原始碼時，以專案根目錄下的 `LaFeniceBackend/docs/media-core.md`、`services/media_core/{router,models,config,network_policy,security,provider,runtime}.py`（位於 Backend）及 `LaFeniceFrontend/src/media/mediaClient.ts` 核對版本。只有遠端環境時，先查 `/media/capabilities` 與部署版本可用的 API 文件；不要假設遠端已包含本機功能，capabilities 本身也不保證白名單管理 API 存在。
 
 ## 整合原則
 

@@ -133,7 +133,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | Manage custom Plugin roles and encrypted App Env records; user role assignment is outside its scope. |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | Manage cron, interval, date, and startup schedules, including enabled and paused states. |
 | [`develop-lafenice-pwa`](develop-lafenice-pwa/SKILL.md) | Address explicit PWA installation, manifest, service worker, and offline requirements. |
-| [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | Integrate cameras, live viewing, and recording playback through Media Core APIs and the Browser SDK. |
+| [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | Integrate cameras, live viewing, and playback; configure and check network allowlists and diagnose RTSP connectivity. |
 | [`transfer-lafenice-plugin`](transfer-lafenice-plugin/SKILL.md) | Preview, export, inspect, and import Plugin packages, with verification across environments. |
 
 ### Architecture and deployment

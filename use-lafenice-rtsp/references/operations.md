@@ -7,7 +7,7 @@
 - MediaMTX 服務可供 Backend 存取；設定 `MEDIA_PROVIDER_ENABLED=true` 與 `MEDIAMTX_API_URL`。
 - 固定且妥善保存 `MEDIA_ENCRYPTION_KEY`；任意輪替可能導致既有攝影機帳密無法解密。另設定 `MEDIA_SESSION_SIGNING_KEY`。
 - `MEDIA_INTERNAL_AUTH_KEY` 與 `MEDIA_INTERNAL_AUTH_URL` 的 query key 一致。開發 HTTPS Backend 的憑證更換後，同步更新 `MEDIA_INTERNAL_AUTH_FINGERPRINT`。
-- 私有攝影機網段設定 `MEDIA_SOURCE_NETWORK_ALLOWLIST`，或使用核准的 `MEDIA_SOURCE_HOSTNAME_ALLOWLIST`。loopback、link-local、multicast、unspecified、reserved 位址會被拒絕，不能靠 allowlist 解禁。
+- 支援即時白名單的版本，使用 `/{PROJECT_ROOT}/config/system/media` 的「網路白名單」分頁管理；儲存後立即套用於後續位址驗證，不必重啟。尚未儲存網頁設定時才沿用 `MEDIA_SOURCE_NETWORK_ALLOWLIST` / `MEDIA_SOURCE_HOSTNAME_ALLOWLIST`。完整設定、CIDR 範例及 API 見 [network-allowlist.md](network-allowlist.md)。loopback、link-local、multicast、unspecified、reserved 位址不能靠白名單解禁。
 - 瀏覽器可連線至 `MEDIA_PUBLIC_WEBRTC_BASE_URL`、`MEDIA_PUBLIC_HLS_BASE_URL`、`MEDIA_PUBLIC_PLAYBACK_BASE_URL`。正式環境規劃 TLS reverse proxy、WebRTC public candidate／TURN、錄影儲存與備份。
 
 由 Backend 目錄啟動已設定的開發環境：
@@ -43,7 +43,7 @@ ffmpeg -re -stream_loop -1 -i test.mp4 -c copy -f rtsp -rtsp_transport tcp rtsp:
 
 1. `/media/capabilities` 確認 Provider 已啟用。需要全域管理資訊時使用 `GET /media/system/status`；此 API 需要 source manager。`POST /media/system/reconcile` 會同步所有啟用來源，僅在任務涉及全域同步時使用。
 2. 來源不可見：先確認 Backend capabilities 為全站模式，再檢查 `view` ACL；若頁面仍要求 tenant，更新頁面的 capability 判斷。403 依操作分辨 source manager、`manage`、`live`、`playback`，不要透過改帳號角色掩蓋錯誤。
-3. 建立來源遭拒：檢查 host 格式、DNS、port、私有網段 allowlist、帳密成對，以及來源路徑。不要把密碼或完整 credential URL 放進診斷輸出。
+3. 建立來源遭拒：檢查 host 格式、DNS、port、私有網段 allowlist、帳密成對，以及來源路徑。政策阻擋或加入白名單後仍無法連線，依 [network-allowlist.md](network-allowlist.md) 區分政策、攝影機網路與瀏覽器播放。不要把密碼或完整 credential URL 放進診斷輸出。
 4. `sync_status` 錯誤或 Provider 502：檢查 MediaMTX 健康、Backend 到 Control API、MediaMTX 到攝影機、設備帳密及來源路徑。`POST /test` 會建立／更新 Provider path；只想查看時先用 GET status。
 5. Provider online 但無畫面：檢查 WHEP HTTP 回應、public URL、TLS／CORS、媒體 session、8189/UDP、NAT／ICE 及 codec。取得 session 成功不等於媒體已連通。
 6. 無錄影／回放 404：確認 recording enabled、實際已產生片段、索引同步、毫秒時間與區間交集。回放開始後失敗則查看授權、缺段及 MP4 支援，不假設 API 可保證整段覆蓋。

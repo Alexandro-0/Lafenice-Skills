@@ -132,7 +132,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | 管理 Plugin 自訂角色與加密 App Env；不包含使用者角色指派。 |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | 管理 cron / interval / date / startup 排程及啟停狀態。 |
 | [`develop-lafenice-pwa`](develop-lafenice-pwa/SKILL.md) | 處理明確的 PWA 安裝、manifest、service worker 與離線需求。 |
-| [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | 透過 Media Core API / Browser SDK 整合攝影機、即時監看與錄影回放。 |
+| [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | 透過 Media Core 整合攝影機、即時監看與回放，設定／檢查網路白名單並排查 RTSP 連線。 |
 | [`transfer-lafenice-plugin`](transfer-lafenice-plugin/SKILL.md) | 預覽、匯出、檢查、匯入 Plugin 封裝與跨環境驗證。 |
 
 ### 架構與部署
