@@ -129,6 +129,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | Skill | Use it for |
 | --- | --- |
 | [`configure-website-entry`](configure-website-entry/SKILL.md) | Manage menu categories, page entry points, frontend routes, and Gateway authentication settings. |
+| [`customize-lafenice-shell`](customize-lafenice-shell/SKILL.md) | Customize topbar/sidebar HTML through Code Registry, apply pinned versions, verify, and restore. |
 | [`configure-language-settings`](configure-language-settings/SKILL.md) | Configure locales, the default language, and Plugin Language Pack entries. |
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | Manage custom Plugin roles and encrypted App Env records; user role assignment is outside its scope. |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | Manage cron, interval, date, and startup schedules, including enabled and paused states. |

@@ -128,6 +128,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | Skill | 適用工作 |
 | --- | --- |
 | [`configure-website-entry`](configure-website-entry/SKILL.md) | 管理選單分類、頁面入口、前端路由與 Gateway 驗證設定。 |
+| [`customize-lafenice-shell`](customize-lafenice-shell/SKILL.md) | 透過 Code Registry 自訂頂欄／側邊欄 HTML，套用固定版本、驗證及還原。 |
 | [`configure-language-settings`](configure-language-settings/SKILL.md) | 設定語系、預設語言與 Plugin Language Pack。 |
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | 管理 Plugin 自訂角色與加密 App Env；不包含使用者角色指派。 |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | 管理 cron / interval / date / startup 排程及啟停狀態。 |

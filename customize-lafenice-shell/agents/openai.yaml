@@ -1,0 +1,4 @@
+interface:
+  display_name: "自訂 LaFenice 頂欄與側邊欄"
+  short_description: "透過 Code Registry 修改導覽 HTML，套用固定版本並驗證及還原"
+  default_prompt: "使用 $customize-lafenice-shell 修改我的 LaFenice 頂欄與側邊欄，保留未指定區域，套用後驗證實際網站。"
