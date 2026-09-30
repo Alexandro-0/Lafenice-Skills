@@ -101,7 +101,7 @@ Route 有 `path`：
 - Top-level `developerTools` 和 `system` 是 frontend-owned protected nodes，不能透過 API 覆蓋或儲存。
 - `protected_keys` 必須包含 `developerTools` 和 `system`。
 - Category 與 route 的 `key` 不只是穩定識別值，也會被前端用來查找選單顯示文字。系統語言包可用對應的 `menuLabels.{key}` 管理翻譯；若語言包中有相對應 key，前端會優先顯示語言包文字，找不到才 fallback 到 `label`。詳情請參考「系統語言包設定」skill。
-- route `path` 必須是 `/config/...`，或單段 code page path，例如 `/orders-page`。
+- route `path` 可為 `/config/...`、固定 code page path 或 named template，例如 `/{slug}/course`。模板項目不直接出現在導航，plugin 應提供填入 slug 的具體連結。
 - `roles` 會被 trim、lowercase、dedupe、sort。
 - `enabled` 預設 `true`，`auth_require` 預設 `false`。
 - 同一個 `children` array 內不可有重複 `key`。
@@ -398,7 +398,30 @@ def handle(*, method, query_params, resource_id, payload, header, uid, roles):
 
 - `409 ACCESS_CONTROL_VERSION_CONFLICT`：有人更新過 menu，重新 GET 後合併再 PATCH。
 - `422 ACCESS_CONTROL_VALIDATION_ERROR`：檢查 protected keys、重複 key、path 格式、roles 型別。
-- `400 Gateway endpoint can contain at most one nested path segment.`：Gateway endpoint 最多一層 nested path；一般 plugin endpoint 建議用單段 kebab-case。
+- `400 Gateway endpoint can contain at most one nested path segment.`：部署 core 尚未支援多層動態路由，回報需要更新 core，勿以大量使用者固定路由繞過。
+
+## 動態頁面與具名參數
+
+`config/users` 的「網址識別碼」儲存為選填 `users.url_slug`，可供業務程式明確用作
+`{slug}` 的值，但儲存欄位本身不會建立路由或自動查詢帳號。
+此欄位透過 `POST /admin-users` 或 `PATCH /admin-users/{id}` 設定，要求 admin/super；
+ai 身分本身不足，不得自行加角色。值 trim 後轉小寫，限 1–64 英數字或單一連字號
+分隔的字詞，跨使用者唯一（含停用帳號）；重複回 409。PATCH 省略保留、null／空白清除。
+登入 user context 中的 `url_slug` 與頁面 `pathParams` 是兩組獨立資料，不能混用。
+
+新版 Gateway 可設定 `{slug}`、`{slug}/course`，handler 指向共用 Registry HTML。
+具體頁面 `/lafenice/alessandro/course` 由公開 `/_gateway/resolve-page?path=alessandro%2Fcourse`
+解析，再載入 `/lafenice/api/alessandro/course`。根目錄使用實際部署值。
+HTML delivery 使用 `auth_required: false`，資料 API 獨立認證與授權。
+iframe 的 `pathParams.slug` 只是字串參數，不代表帳號或頁面主人。
+參數名稱亦可用 category、locale、item_id，由業務程式自行解讀及驗證。
+即使命名 username，core 也不查帳號；`user` 仍是獨立的登入訪客資訊。
+
+固定完整路由和舊式 `endpoint/resource_id` 優先於模板；保留系統及既有固定頁面名称。
+Gateway GET 設定中的 `routing_warnings` 會列出遮蔽；兩個有重疊可能的動態模板會拒絕儲存。
+不支援 regex、catch-all 或 optional segment。管理 URL 的 braces 需 encode，slash 保留。
+以實際 URL 驗證匿名／登入、不同參數值、直接開啟、重新整理、上一頁／下一頁與 query。
+資料授權必須使用 backend uid/roles/tenant，不能信任 slug 或 UI auth_require。
 - `403 ... requires admin or ai role`：目前 JWT 的有效角色不足；重新確認 `/auth-me` 包含 `ai`。
 
 ## UTF-8 API request rule

@@ -56,6 +56,11 @@ description: 在無法查看 LaFenice backend/frontend source code 的 productio
 
 ## API 端規範
 
+具名 URL 參數或多層 HTML route 任務，先讀
+[動態路徑 contract](references/dynamic-page-routes.md)。Gateway 支援 `{slug}/course`，
+iframe 透過 `pathParams` 取得一般字串參數，其用途由業務程式決定，沒有內建帳號語意；
+`user` 仍是獨立的登入訪客資訊。個人頁面只是可選的應用之一。
+
 Python Code Registry module 必須提供同名 handler contract：
 
 ```python

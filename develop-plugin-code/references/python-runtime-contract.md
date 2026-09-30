@@ -475,3 +475,12 @@ def fetch_partner_status() -> dict:
 ```
 
 The actual handler must catch upstream exceptions and return a stable error without credentials, response bodies, or internal traces.
+
+## Gateway named path parameters
+
+On cores supporting dynamic page routes, `from gateway.request_context import
+get_request_context` is a supported platform helper. Read `path_params`,
+`route_pattern`, and `request_path` without changing the seven-argument handler
+signature. Missing context (for example Registry preview) must be handled.
+Parameters are untrusted resource selectors; never mutate authentication or tenant
+context using them. See [dynamic page routes](dynamic-page-routes.md).
