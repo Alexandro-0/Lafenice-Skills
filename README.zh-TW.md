@@ -21,6 +21,8 @@
 
 ## 快速開始
 
+部署維護可直接說「更新台北正式站」或「把測試站改名為展示站」。初次安裝時指定名稱與安裝位置；之後由 [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) 按 OS 固定索引定位，改名不改 Docker 或資料身分。既有部署先納管，保留原設定與掛載。詳見 [方案與實作階段](deploy-lafenice-instances/references/solution-design.md)；目前是 agent 工作流程，尚未提供 `lfx` CLI，也不會因安裝 skills 自動登記主機。
+
 ### 1. 安裝 skills
 
 如果你的 Codex 提供 `skill-installer`，可直接提出以下請求：
@@ -141,8 +143,9 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | Skill | 適用工作 |
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | 架構導覽、元件責任、資料流與 Core / Plugin 邊界說明。 |
-| [`install-lafenice`](install-lafenice/SKILL.md) | 依 Drive 更新時間下載最新 ZIP，初次安裝設定與備份 env，或合併既有設定並驗證更新。 |
-| [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | 安裝、配置、備份、還原與升級同一 Docker host 上的 full-export 實例。 |
+| [`install-lafenice`](install-lafenice/SKILL.md) | 下載最新 ZIP，依客戶自訂名稱安裝或更新，沿用登記的正式設定與資料。 |
+| [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | 從 OS 固定索引找回實例，登記、改名與維護，避免 env、Docker 目標及資料混用。 |
+| [`adopt-lafenice-instance`](adopt-lafenice-instance/SKILL.md) | 舊客戶首次納管：協助找出既有部署，命名、備份及建立索引，不重裝或搬資料。 |
 
 ## Skills 如何分工？
 

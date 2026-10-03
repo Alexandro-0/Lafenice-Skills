@@ -1,26 +1,32 @@
 ---
 name: install-lafenice
-description: 下載公開 Google Drive 中更新時間最新的 LaFenice ZIP，協助初次安裝設定與備份 .env，或更新既有安裝並合併新版 env keys、保留使用者設定及資料。適用於下載、安裝與升級 LaFenice 平台，不是安裝 AI skills 或匯入業務 Plugin。
+description: 下載公開 Google Drive 中更新時間最新的 LaFenice ZIP，依客戶指定名稱安裝或更新實例，透過固定索引找回正式 env 與資料，合併新版設定並備份驗證。適用於 LaFenice 平台下載、安裝與升級，不是安裝 AI skills 或匯入業務 Plugin。
 ---
 
 # 下載、安裝與更新 LaFenice
 
 ## 判斷目標與安裝狀態
 
-先依使用者提供的位置檢查既有 release、根目錄 `.env`、Compose 設定、Docker 實例與設定備份。只檢查本次目標，不因新下載的資料夾沒有 env 就認定是初次安裝。
+安裝或更新前先讀 [依名稱管理實例](../deploy-lafenice-instances/SKILL.md) 與其 [索引契約](../deploy-lafenice-instances/references/instance-registry.md)。每次從 OS 使用者固定位置讀索引，再按客戶名稱／ID 找 manifest，不依賴前次對話或目前目錄。共用 skill/reference 缺失時先補齊來源，不臆造索引格式或回退到任意 .env。只下載 ZIP 時不建立實例紀錄。
+
+新實例取得客戶自訂名稱，檢查重名並建立永久 UUID；客戶名稱不直接作為 Docker 名稱。更新沿用 manifest 指定的正式 env、release、Docker 目標與掛載。索引空白／失效不能當成初裝；先走既有安裝納管或復原。名稱不明時讓客戶選實例，目標已明確就不重問每一個路徑。
+
+已有部署但尚未登記，使用 [adopt-lafenice-instance](../adopt-lafenice-instance/SKILL.md) 協助找回舊設定、由客戶命名並建立索引。納管驗證完成後才繼續原本已授權的更新；不要求客戶先自行建立紀錄檔。
+
+定位後檢查既有 release、根目錄 `.env`、Compose、Docker 實例與備份。只檢查本次目標，不因新下載的資料夾沒有 env 就認定是初次安裝。
 
 - 初次安裝：確認目標實例沒有既有設定或資料後，依新版範本設定。
 - 更新：找到同一實例的舊安裝、資料掛載或設定備份，先備份再 merge。
 - 有既有資料但 env 遺失：找回備份或原部署的設定來源，不能生成新金鑰當作全新安裝。
-- 多個實例：辨識這次更新哪一個；只缺必要資訊時詢問安裝路徑、作業系統或實例名稱。額外實例的隔離配置可參考 [deploy-lafenice-instances](../deploy-lafenice-instances/SKILL.md)。
+- 多個實例：按名稱／ID 精確定位，只缺必要資訊才詢問；不以最近使用、相似名稱或新 ZIP 目錄決定更新哪一個。第一套與後續新實例都使用唯一技術身分；既有部署保留原身分。
 
 僅要求下載時，交付 ZIP 與來源資訊即可。要求安裝或更新時，在已授權範圍內完成設定、備份與驗證，不以提供指令代替可執行的工作。
 
 ## 下載前先確認資料夾路徑
 
-下載或安裝前，必須先與使用者確認本次 LaFenice 資料夾的完整路徑。若本次任務已明確指定下載／安裝目的路徑，直接沿用，不重複詢問；目前工作目錄、偵測到的舊安裝位置或範例路徑，都不等於使用者已確認本次目的地。
+初次安裝或只下載 ZIP，必須取得使用者指定的 LaFenice 資料夾完整路徑。已明確指定時直接沿用；cwd、未納管舊安裝或範例路徑不等於目的地。依名稱更新已登記實例時，核對 manifest 後沿用 installation_root，在其 downloads/releases 下準備新版，不重問客戶已登記的路徑；移動根目錄或資料則另行釐清。
 
-尚未指定時，先詢問：「你希望將 LaFenice 放在哪個資料夾？例如 `D:/LaFenice`；若資料夾不存在，我會協助建立。」依使用者的作業系統提供合適範例。等待回答前可檢查安裝狀態與下載清單，但不得自行決定目的地、建立安裝目錄或開始下載 ZIP。
+初次安裝／只下載且尚未指定目的地，或既有實例缺少可核對的 installation_root 時，先詢問：「你希望將 LaFenice 放在哪個資料夾？例如 `D:/LaFenice`；若資料夾不存在，我會協助建立。」依使用者的作業系統提供合適範例。等待回答前可檢查安裝狀態與下載清單，但不得自行決定目的地、建立安裝目錄或開始下載 ZIP。
 
 - 使用者只提供上層目錄時，明確確認是否在其下建立 `lafenice` 子資料夾，例如選擇 `D:/apps` 時，確認最終位置為 `D:/apps/lafenice`；不要默默多加一層。
 - 路徑確認後，檢查完整路徑、存取權限、可用空間與既有內容。資料夾不存在時，依已確認的路徑建立；已存在時保留其內容，不清空或直接覆蓋舊 release。無法寫入或空間不足時，說明原因並請使用者指定另一個位置，不擅自改存其他磁碟。
@@ -49,11 +55,15 @@ description: 下載公開 Google Drive 中更新時間最新的 LaFenice ZIP，�
 5. 使用安全亂數或使用者安全提供的值設定 `MONGO_ROOT_PASSWORD`、`MQTT_PASSWORD`、`JWT_SECRET`、`MEDIA_INTERNAL_AUTH_KEY`，並替換啟用中的 `DEFAULT_SUPER_PASSWORD`、`DEFAULT_ADMIN_PASSWORD`、`DEFAULT_AI_AGENT_PASSWORD`。其他金鑰依包內要求的格式設定；選用空值只有在該功能明確允許時保留。避免部署出廠密碼或 setup marker。
 6. 在 release、原始碼 repository 與資料目錄之外建立限制存取的設定備份，例如 `D:/LaFeniceConfigBackups/main/<timestamp>/`。以原始位元組保存完成的 `.env`，核對備份與原檔雜湊；同時記錄實例名稱、Compose project、release、啟動參數與資料路徑。驗證成功後再存一份 accepted 備份，後續每次設定異動均新增歷史，不覆蓋唯一備份。
 
+上述備份位置為示意，正式快照依 [操作契約](../deploy-lafenice-instances/references/instance-operations.md) 使用 UUID 與 snapshot.json 綁定。啟動前寫 pending manifest 並登記索引；成功驗證後才更新 accepted 狀態與設定 hash。設定／索引不能因 ZIP 解壓而被覆蓋。
+
 env 與其備份包含秘密，不提交 Git、不上傳公开空間、不在對話或 log 印出值。需要使用者填入秘密時使用安全輸入或本機檔案。備份私鑰檔、憑證與 override 時一併保留必要的權限與掛載資訊；env 備份不是資料庫備份。
 
 ## 更新：先 merge，再切換
 
 更新時必須先閱讀 [env 合併規則](references/env-merge.md)。
+
+同時遵循 [實例操作與相容流程](../deploy-lafenice-instances/references/instance-operations.md)：取得實例鎖、核對 daemon 與紀錄 hashes、保存 operation 階段。現有包使用 release-local 模式；新包出廠 env 不是正式設定。候選啟動並驗證前不更新 active_release；中斷時依 operation 與實際容器復原，不只相信指標。
 
 1. 記錄舊版實際使用的 env、Compose project、所有 `-f` override、profile、資料掛載與啟動方式；把 shell 環境覆蓋、外部秘密檔等設定來源納入核對。備份舊 env 與設定，保留新包出廠 env。
 2. 在新 release 中產出合併候選檔。用新版作基底、依 key 分類取值；不得整份舊 env 蓋掉新版，也不能只補上新 keys 卻忽略版本相容性。輸出只含 key 名稱、來源及待處理項目的摘要。
@@ -86,7 +96,7 @@ env 與其備份包含秘密，不提交 Git、不上傳公开空間、不在對
 
 ## 啟動及驗證
 
-以下命令適用於含 host-volume 腳本的完整包，在已設定好的新 release 根目錄執行；既有 named-volume 部署維持原模式，不自動改成 host bind。
+以下為包內基礎範例，不是可忽略實例定位的通用命令。實際執行須依 manifest 固定 Docker context/daemon、project、絕對 env/Compose 路徑、profiles 與子程序環境，核對 helper 的等價設定。既有 named-volume 部署維持原模式，不自動改成 host bind。
 
 ```powershell
 docker compose --env-file .env -f docker-compose.yml -f docker-compose.host-volumes.yml config --quiet
@@ -106,4 +116,4 @@ sh ./start-with-host-volumes.sh
 
 如果選擇其他 Compose 模式，使用包內對應流程，並自行執行相同的 env 預檢。啟動後檢查容器健康、前端入口與 `/<PROJECT_ROOT>/api/ping`，更新時另確認原有資料與登入功能仍可使用；其他實例應保持正常。
 
-交付下載檔名與 Drive 更新時間、安裝或更新模式、release 路徑、env 備份位置、merge 的新增／保留／採新版／待確認 keys、入口 URL 及實測結果。未下載、未啟動或未驗證的部分如實標示，不宣稱已安裝完成。
+交付客戶實例名稱／ID、索引與 manifest 路徑、Docker 目標、下載檔名與 Drive 更新時間、安裝或更新模式、release、正式 env 與快照位置、merge 的新增／保留／採新版／待確認 keys、入口 URL 及實測結果。成功後依契約更新 manifest，讓未來新對話可按名稱定位。未下載、未啟動、未驗證或未登記的部分如實標示。

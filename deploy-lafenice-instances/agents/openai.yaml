@@ -1,4 +1,4 @@
 interface:
-  display_name: "Deploy LaFenice Instances"
-  short_description: "Install multiple instances and preserve each .env"
-  default_prompt: "Use $deploy-lafenice-instances to install one or more LaFenice instances and safely preserve each environment configuration."
+  display_name: "依名稱管理 LaFenice 實例"
+  short_description: "以客戶名稱定位 LaFenice，登記、改名及核對各實例設定與資料"
+  default_prompt: "使用 $deploy-lafenice-instances，從作業系統固定索引定位我指定名稱的 LaFenice，核對正式設定、Docker 目標與資料後完成本次操作。"

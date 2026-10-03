@@ -1,0 +1,4 @@
+interface:
+  display_name: "納管既有 LaFenice"
+  short_description: "找回既有部署設定與資料，依客戶名稱建立可跨對話查找的實例紀錄"
+  default_prompt: "使用 $adopt-lafenice-instance，協助找出我已部署的 LaFenice，讓我命名並建立實例索引，保留目前設定、服務與資料。"

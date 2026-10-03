@@ -21,6 +21,8 @@ A **skill** provides working instructions for an agent. A **LaFenice Plugin** pa
 
 ## Quick start
 
+For deployment maintenance, ask to “update the Taipei production instance” or “rename the test instance to Demo.” Specify a customer-facing name and installation path on first install. [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) subsequently resolves it through a fixed OS registry; renaming does not rename Docker resources or move data. Existing installations are registered without changing settings or mounts. See the [design and implementation phases](deploy-lafenice-instances/references/solution-design.md). These are agent workflows, not an implemented `lfx` CLI; installing the skills does not automatically register deployments.
+
 ### 1. Install the skills
 
 If your Codex environment provides `skill-installer`, use this prompt:
@@ -142,8 +144,9 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | Skill | Use it for |
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | Explain architecture, component responsibilities, data flows, and the Core / Plugin boundary. |
-| [`install-lafenice`](install-lafenice/SKILL.md) | Download the latest ZIP by Drive modified time, set up and back up first-install env, or merge settings and verify an upgrade. |
-| [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | Install, configure, back up, restore, and upgrade full-export instances on the same Docker host. |
+| [`install-lafenice`](install-lafenice/SKILL.md) | Download the latest ZIP; install or upgrade a customer-named instance using its registered settings and data. |
+| [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | Discover instances through a fixed OS registry; register, rename, and maintain each instance without mixing settings or data. |
+| [`adopt-lafenice-instance`](adopt-lafenice-instance/SKILL.md) | Onboard existing deployments: discover settings and mounts, obtain a customer name, back up settings, and register without reinstalling or moving data. |
 
 ## How the skills work together
 

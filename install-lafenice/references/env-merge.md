@@ -2,6 +2,8 @@
 
 ## 輸入與輸出
 
+先依 [實例索引契約](../../deploy-lafenice-instances/references/instance-registry.md) 確定目標 UUID 與正式設定來源；舊 env、快照與 Docker 資源必須屬於同一實例。客戶顯示名稱可以改，歸屬以永久 ID 加實際資源核對，不按備份檔名或相似路徑猜測。新版出廠 env 不因解壓而成為正式 env。
+
 使用同一實例的舊有效 env、新包原始 env，以及可取得時的舊版出廠 env（三方比較）。有效設定還可能來自 shell、`--env-file`、Compose override 或秘密檔；先識別來源，不將其他實例的值混入。
 
 保留三份互不覆蓋的檔案：舊有效 env 的歷史備份、新版出廠 env、合併候選 env。不要修改舊有效 env。新包沒有清楚的設定範本時，先讀包內文件或找正確範本，不能拿舊檔冒充新版。
