@@ -257,9 +257,11 @@ Version test 用來驗證指定 source/version 的執行結果，但不要假設
 
 ## 新增或修改 HTML 程式碼
 
-HTML version 儲存會同步 upsert 網頁入口。未帶 `gateway.preserve_existing: true` 時，既有 route 可能被預設值覆蓋：未指定 menu key/label 會改成 `codePage.*` 與模組名稱，sort 會變成 10，auth_require、roles、enabled 也會被重置。即使提供 menu key/label，仍不能保住排序與權限。
+純程式碼更新不包含選單管理：不要新增、重建或移動 menu category、sub category、route，不修改名稱、排序、權限或對應的選單 Language Pack；也不要因儲存成功回應包含 route 資訊就再執行選單 reconciliation。只有首次建立且確實需要入口的頁面、使用者要求修改入口，或已確認的入口故障修復，才依 `configure-website-entry` 做必要的最小變更。既有入口被隱藏、停用或移除，不代表故障。
 
-更新既有 HTML 前，讀 latest version 的 Gateway 設定及 `/access-control`，依實際 endpoint/path 找到 route，保存 key、label、分類位置、sort、auth_require、roles、enabled、plugin。每次儲存（包括 MDC 重產後重新套用客製 source）都明確帶 `gateway.preserve_existing: true`，沿用既有 endpoint；不要省略 gateway 並期待繼承上一版本。若填 menu key/label，使用既有 route 值。下例值僅供新頁面使用。
+新版 backend 在同 endpoint 更新既有 HTML 時不寫入 Access Control，並繼承上一 HTML version 未指定的 Gateway 欄位；首次建立或明確變更 endpoint 才可能補建入口，匹配到既有 menu key/path 時仍保留所有設定。不要假設部署已具備此修正：舊版 HTML 儲存會 upsert 網頁入口，未帶 `gateway.preserve_existing: true` 時，名稱、sort、auth_require、roles、enabled 可能被預設值覆蓋，即使提供 menu key/label 也不能保住排序與權限。
+
+更新既有 HTML 前，讀 latest version 的 Gateway 設定及 `/access-control`，依實際 endpoint/path 找到 route，保存 key、label、分類位置、sort、auth_require、roles、enabled、plugin。每次儲存（包括 MDC 重產後重新套用客製 source）都明確帶 `gateway.preserve_existing: true`，沿用既有 endpoint；為相容舊版部署，不要省略 gateway 並期待繼承上一版本。若填 menu key/label，使用既有 route 值。下例值僅供新頁面使用。
 
 建立或更新 HTML module：
 

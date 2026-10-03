@@ -148,7 +148,7 @@ Gateway route existence 以 endpoint + method 判斷；既有 mapping 會 preser
 產碼後：
 
 1. 依 `configure-language-settings` 讀回受影響 items，以保存的翻譯加上使用者要求的文案差異 PATCH 回去；保留既有 plugin，不傳 id、timestamps 等唯讀欄位。新 key 才補初始翻譯。若遇到無法解釋的並行變更，先停止該筆寫入並回報差異，不用舊快照蓋掉他人修改。
-2. 有客製 source 時重新套用 diff、存成新 version。重存 HTML 必須沿用既有 Gateway endpoint，明確帶 `gateway.preserve_existing: true`；若填 `menu_key`、`menu_label`，沿用快照中的值。該旗標不會由上一個 generated version 自動繼承。
+2. 有客製 source 時重新套用 diff、存成新 version。重存 HTML 必須沿用既有 Gateway endpoint，明確帶 `gateway.preserve_existing: true`；若填 `menu_key`、`menu_label`，沿用快照中的值。舊版 backend 不會自動繼承該旗標；不要依賴部署已具備新版繼承行為。
 3. 在 Generate Code 及每次 HTML 儲存後 GET `/access-control`，比對既有 route 上述欄位與分類位置；sort 必須保留原數值，不能重編序號或全設為 10。同步確認 Language Pack 原有翻譯與使用者要求的文案差異。
 4. 若保留旗標被 deployed backend 拒絕或仍出現選單重置，停止後續 HTML 儲存，記錄 compatibility gap。修復本次操作造成的差異時，依 `configure-website-entry` 重新 GET 最新 menu/version，只合併本次受影響欄位；不要用舊整棵 menu 覆蓋並行更新。無法安全還原時明確回報未恢復項目。
 5. 測 Code Registry version、實際 Gateway route 與 App Shell 側邊欄名稱/排序；不要只看 `validation.ok` 或 generate response。語系還原失敗不得宣稱重產流程完成。

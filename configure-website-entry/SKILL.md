@@ -195,19 +195,21 @@ Invoke-RestMethod `
 
 ## 將網頁 Endpoint 加入指定 Menu Category
 
-如果網頁是 Code Registry 的 `code_type: "html"` module，儲存 HTML version 時可以在 `gateway` payload 指定 endpoint、plugin 與預設 menu label。後端會自動：
+單純修改既有 HTML/CSS/JS 或 API 程式碼，不應觸發本節的選單寫入。只有首次建立且需要入口的頁面、使用者要求修改入口，或已確認的入口故障修復，才新增或調整分類、子分類與 route；隱藏、停用或移除的入口不應自動重建。一般 HTML 更新依 `develop-plugin-code` 保留 endpoint、送出 `gateway.preserve_existing: true` 並讀回驗證，沒有非預期差異就不呼叫 `PATCH /access-control`。
+
+如果網頁是 Code Registry 的 `code_type: "html"` module，首次儲存 HTML version 時可以在 `gateway` payload 指定 endpoint、plugin 與預設 menu label。後端會自動：
 
 - 建立 `GET /lafenice/api/{endpoint}` Gateway route。
 - 建立前端 iframe route path `/{endpoint}`。
-- 將 route upsert 到 `codePages` category。
+- 將缺少的 route 加入 `codePages` category；新版 backend 保留匹配到的既有 route。
 
-這個自動 upsert 可能在後續儲存其他 HTML version 時再次建立 `codePages` child。因此選單設定必須放在所有 HTML version 發布之後做最後 reconciliation：
+新版 backend 在同 endpoint 儲存既有 HTML 時不寫入選單。舊版可能再次 upsert `codePages` child，因此每次都帶保留旗標與既有 endpoint，並檢查結果。以下 reconciliation 僅適用於本次任務確實要求新增或調整入口，不能作為每次編輯程式碼的收尾步驟：
 
 1. 先發布所有 HTML versions，且每個 `gateway.menu_key` 使用最終自訂 category 中同一個 leaf key。
 2. 重新 `GET /access-control`，不要沿用發布 HTML 前的 version/menu snapshot。
 3. 把每個 plugin route upsert 到目標 category，並只移除 `codePages.children` 中同 plugin 且同 key/path 的自動重複節點；保留其他 plugin、未知 sibling 與 protected nodes。
 4. 以最新 `version` 做一次 replacement `PATCH`，遇到 `409` 就重新讀取、重新合併。
-5. 所有 HTML version 儲存完成後不要再另存 HTML；若確實需要再發布，必須重做這個 reconciliation。
+5. 後續再儲存 HTML 時沿用 endpoint 與保留旗標，讀回確認選單未變；不要無條件重做 reconciliation，也不要把整個 category 刪掉重建。
 
 `gateway.menu_key` 是穩定資源綁定，不只是顯示文字。它必須與 curated menu leaf `key` 完全一致，方便 export preview、import merge 與重複節點清理。
 
@@ -223,6 +225,7 @@ Code Registry 儲存 HTML version 範例：
   "gateway": {
     "endpoint": "orders-page",
     "plugin": "sales",
+    "preserve_existing": true,
     "menu_key": "ordersPage",
     "menu_label": "Orders"
   }
