@@ -48,11 +48,21 @@ description: 下載公開 Google Drive 中更新時間最新的 LaFenice ZIP，�
 
 ## 初次安裝與設定備份
 
+### 密碼選擇與保留
+
+- 使用者明確指定的登入密碼優先；只要符合該版本實際驗證規則，就採用原值。不得因 agent 偏好而加長、增加複雜度、替換成亂數或自行發明最低長度。不反覆要求使用者改用長密碼，也不在對話或紀錄輸出密碼。
+- 區分人員登入密碼（DEFAULT_SUPER_PASSWORD、DEFAULT_ADMIN_PASSWORD、DEFAULT_AI_AGENT_PASSWORD）、服務帳密（Mongo/MQTT）與程式金鑰（JWT_SECRET、加密／簽章 key）。程式金鑰初裝依實際格式及安全亂數需求產生，不能把「方便記憶的登入密碼」套用到所有 key。既有服務帳密及金鑰在普通更新時保留，不自行輪替。
+- 使用者未指定初裝登入密碼時，讓使用者選擇自行設定或交由 agent 產生；若已授權產生則直接執行。由使用者透過安全輸入或本機檔案提供，不要求在聊天貼秘密。
+- 若實際啟動器拒絕特定值（例如出廠 super/admin/agent777、空值或 setup marker），指出具體欄位與實際限制，請使用者選擇符合規則的值；不能假稱是「長度不足」，也不能偷偷換密碼或繞過檢查。這與使用者自訂的較簡單密碼不同。
+- 普通更新／納管不是密碼重設授權。新版 env 有不同密碼時預設保留同實例舊有效值。使用者明確要求修改現有登入密碼時，走受支援的帳號管理／改密碼流程並驗證；只改 env 不得宣稱登入密碼已變更。
+
+### 設定步驟
+
 1. 檢查 Docker daemon、Docker Compose 是否可用，並閱讀包內平台需求。依使用者現有本機、LAN 或網域入口設定連線位址；缺少必要偏好才詢問。
 2. 保留新版出廠 env，以它為基底建立實際 `.env`，不要用目前開發機的 env 當作客戶範本。
 3. 設定穩定的絕對 `HOST_DATA_ROOT`，放在 release 外，例如 Windows `D:/LaFeniceData/main`、Linux `/opt/lafenice/data/main`。檢查可寫入、埠與實例名稱是否衝突；初裝不得直接接上來源不明的既有資料目錄。
 4. 設定 `PROJECT_ROOT`、`FRONTEND_PORT`、`FRONTEND_BIND_ADDRESS` 與入口相關值。完整包的 `API_BASE` 通常為 `/<PROJECT_ROOT>/api`，仍以該包契約為準。保留容器內部 MQTT `1883`、Valkey `6379` 及包內 FastAPI 連接方式，不拿 host port 取代內部埠。
-5. 使用安全亂數或使用者安全提供的值設定 `MONGO_ROOT_PASSWORD`、`MQTT_PASSWORD`、`JWT_SECRET`、`MEDIA_INTERNAL_AUTH_KEY`，並替換啟用中的 `DEFAULT_SUPER_PASSWORD`、`DEFAULT_ADMIN_PASSWORD`、`DEFAULT_AI_AGENT_PASSWORD`。其他金鑰依包內要求的格式設定；選用空值只有在該功能明確允許時保留。避免部署出廠密碼或 setup marker。
+5. 依上述密碼規則設定 `MONGO_ROOT_PASSWORD`、`MQTT_PASSWORD` 與啟用中的預設帳號密碼；使用者已指定且通過實際驗證的值保持原樣。`JWT_SECRET`、`MEDIA_INTERNAL_AUTH_KEY` 等程式金鑰依格式及安全亂數需求設定。選用空值只有功能明確允許時保留；出廠密碼或 setup marker 依實際啟動器限制處理，不自行替換客戶選定的密碼。
 6. 在 release、原始碼 repository 與資料目錄之外建立限制存取的設定備份，例如 `D:/LaFeniceConfigBackups/main/<timestamp>/`。以原始位元組保存完成的 `.env`，核對備份與原檔雜湊；同時記錄實例名稱、Compose project、release、啟動參數與資料路徑。驗證成功後再存一份 accepted 備份，後續每次設定異動均新增歷史，不覆蓋唯一備份。
 
 上述備份位置為示意，正式快照依 [操作契約](../deploy-lafenice-instances/references/instance-operations.md) 使用 UUID 與 snapshot.json 綁定。啟動前寫 pending manifest 並登記索引；成功驗證後才更新 accepted 狀態與設定 hash。設定／索引不能因 ZIP 解壓而被覆蓋。

@@ -22,6 +22,8 @@
 
 ## 必須核對的 LaFenice 設定
 
+- **預設帳號密碼**：DEFAULT_SUPER_PASSWORD、DEFAULT_ADMIN_PASSWORD、DEFAULT_AI_AGENT_PASSWORD 合併時保留同實例舊有效值，不用新版出廠值覆蓋，也不因密碼較簡單就自行產生新值。依 [安裝 skill 的密碼規則](../SKILL.md) 尊重使用者選擇。
+- **初始化與真正改密碼不同**：目前後端 services/auth.py 的 _ensure_default_password_user 在帳號已存在時保留 password_hash，只在不存在時以 env 密碼建立帳號。因此更改 env 並重啟通常不會修改既有 super/admin/ai-agent 的登入密碼；實際下載版本仍須核對其契約。若連到空資料庫或帳號被刪除，可能按新 env 建帳，這不是覆蓋原帳號。不得把此情況當成更新成功。明確要求改現有密碼時使用受支援帳號 API／管理介面；env 初始化值如需同步須明確記錄，不能把單獨 env 編輯回報為密碼已重設。
 - **資料與身份**：`HOST_DATA_ROOT`、各 `HOST_*_DIR`、命名 volume、Compose project、容器與網路名稱、`PROJECT_ROOT`、資料庫名稱、replica set、Mongo/MQTT 帳密、Valkey URL、前端 image 名稱與對外埠。更新不得重設身份或換到另一組空 volumes。MQTT 帳號初始化後尤其不能隨意變更；env 改密碼也不代表既有 MongoDB 使用者密碼已同步修改。
 - **秘密與加密**：保留 `JWT_SECRET`、`APP_ENV_ENCRYPTION_KEY`、`MEDIA_ENCRYPTION_KEY`、`MEDIA_SESSION_SIGNING_KEY`、`MEDIA_INTERNAL_AUTH_KEY`、`PASSWORD_ENCRYPTION_PRIVATE_KEY_*`、S3 金鑰與既有帳密。若媒體 key 空值代表回退到 `JWT_SECRET`，保留其有效金鑰來源，不趁升級生成新值。新增必要秘密只初始化新增項；既有 placeholder 需依實际初始化與遷移程序處理，不能盲目輪替。
 - **相對路徑**：舊 `HOST_DATA_ROOT` 空白、`./volumes` 或其他相對掛載，在不同 release 會解析成不同目錄。先依舊 Compose 基準與實際 mount 解析原絕對位置，讓新版指向同一資料；私鑰、憑證、自訂 bind mounts 也要核對。需搬移資料時另做一致備份與遷移，不能悄悄建立新資料夾。保留舊路徑也表示舊 release 目錄尚不能刪除。

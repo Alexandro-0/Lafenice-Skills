@@ -55,6 +55,8 @@ description: 依客戶指定的實例名稱列出、登記、改名、部署與�
 
 ## 不可破壞的條件
 
+密碼依 [安裝 skill 的密碼選擇規則](../install-lafenice/SKILL.md)：符合實際版本限制的使用者指定密碼保持原樣，不能自行加長或輪替。更新與納管不重設既有帳密，env 的 DEFAULT_*_PASSWORD 不等同資料庫內既有帳號密碼。
+
 更新缺失原資料時停止，不建立空目錄／新 volume 冒充復原；不以 down -v、prune 或刪資料解決衝突。同一資料不可由兩套資料庫同時寫入。索引與 manifest 是定位紀錄，實際 Docker 掛載與 daemon 每次都要核對。
 
 後續統一部署工具設計與驗收情境見 [方案與驗收](references/solution-design.md)。
