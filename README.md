@@ -68,6 +68,8 @@ To operate on a deployed system, prepare:
 
 API-based development requires network access to the target deployment. UI acceptance testing requires browser control. Prepare Python, Node.js, or PowerShell as required by the scripts you use; deployment maintenance also requires the relevant Docker environment. Each skill defines its own prerequisites.
 
+Email delivery is an exception to the development identity above: [`send-lafenice-email`](send-lafenice-email/SKILL.md) uses an authorized admin/super session. An ai-only account cannot call the email APIs.
+
 ### 3. Choose an entry point
 
 Use these prompts as starting points. The URL below is a placeholder; replace it with your target environment.
@@ -135,6 +137,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | [`configure-language-settings`](configure-language-settings/SKILL.md) | Configure locales, the default language, and Plugin Language Pack entries. |
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | Manage custom Plugin roles and encrypted App Env records; user role assignment is outside its scope. |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | Manage cron, interval, date, and startup schedules, including enabled and paused states. |
+| [`send-lafenice-email`](send-lafenice-email/SKILL.md) | Send email using the Gmail integration, with comma-separated recipients and partial-result handling. Requires admin/super JWT; ai-only and API Keys cannot send. |
 | [`develop-lafenice-pwa`](develop-lafenice-pwa/SKILL.md) | Address explicit PWA installation, manifest, service worker, and offline requirements. |
 | [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | Integrate cameras, live viewing, and playback; configure and check network allowlists and diagnose RTSP connectivity. |
 | [`transfer-lafenice-plugin`](transfer-lafenice-plugin/SKILL.md) | Preview, export, inspect, and import Plugin packages, with verification across environments. |

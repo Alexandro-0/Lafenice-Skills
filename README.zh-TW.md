@@ -68,6 +68,8 @@ API 登入與角色驗證由 [`get-plugin-edit-access`](get-plugin-edit-access/S
 
 API 型開發需要 Agent 能連線目標部署；有 UI 的驗收需要瀏覽器操作能力。Python / Node.js / PowerShell 等執行工具依各 skill 所用腳本準備，部署維護則另需對應 Docker 環境。實際前置條件以該 skill 為準。
 
+寄信身分與上述開發身分不同：[`send-lafenice-email`](send-lafenice-email/SKILL.md) 使用已授權的 admin／super session；只有 ai 角色無法呼叫郵件 API。
+
 ### 3. 指定工作入口
 
 以下範例可直接作為任務起點；網址是示意值，請替換成你的目標環境。
@@ -134,6 +136,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | [`configure-language-settings`](configure-language-settings/SKILL.md) | 設定語系、預設語言與 Plugin Language Pack。 |
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | 管理 Plugin 自訂角色與加密 App Env；不包含使用者角色指派。 |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | 管理 cron / interval / date / startup 排程及啟停狀態。 |
+| [`send-lafenice-email`](send-lafenice-email/SKILL.md) | 透過 Gmail 整合寄信，支援逗號分隔收件者及部分成功處理；要求 admin／super JWT，ai-only 與 API Key 不適用。 |
 | [`develop-lafenice-pwa`](develop-lafenice-pwa/SKILL.md) | 處理明確的 PWA 安裝、manifest、service worker 與離線需求。 |
 | [`use-lafenice-rtsp`](use-lafenice-rtsp/SKILL.md) | 透過 Media Core 整合攝影機、即時監看與回放，設定／檢查網路白名單並排查 RTSP 連線。 |
 | [`transfer-lafenice-plugin`](transfer-lafenice-plugin/SKILL.md) | 預覽、匯出、檢查、匯入 Plugin 封裝與跨環境驗證。 |

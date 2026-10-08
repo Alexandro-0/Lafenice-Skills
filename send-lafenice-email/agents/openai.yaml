@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaFenice Email 寄送"
+  short_description: "透過 Gmail 整合 API 寄送郵件，支援多收件者、部分成功與錯誤處理"
+  default_prompt: "使用 $send-lafenice-email，依我指定的 LaFenice 環境、收件者與內容寄送郵件，並回報接受與拒絕結果。"
