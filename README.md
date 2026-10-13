@@ -147,6 +147,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | Skill | Use it for |
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | Explain architecture, component responsibilities, data flows, and the Core / Plugin boundary. |
+| [`manage-plugin-users`](manage-plugin-users/SKILL.md) | API registration, custom-profile user maintenance UI, and optional super-granted tenant-scoped account management for custom App Shell roles. |
 | [`install-lafenice`](install-lafenice/SKILL.md) | Download the latest ZIP; install or upgrade a customer-named instance using its registered settings and data. |
 | [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | Discover instances through a fixed OS registry; register, rename, and maintain each instance without mixing settings or data. |
 | [`adopt-lafenice-instance`](adopt-lafenice-instance/SKILL.md) | Onboard existing deployments: discover settings and mounts, obtain a customer name, back up settings, and register without reinstalling or moving data. |

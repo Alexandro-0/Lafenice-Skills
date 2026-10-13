@@ -75,6 +75,12 @@ The verified `ai` session is sufficient for collection configuration and Generat
 
 ## Return a capability summary
 
+Optional account workflows are documented in
+[`manage-plugin-users`](../manage-plugin-users/SKILL.md): public registration,
+custom profile forms, and super-granted `/tenant-users` access for a selected
+custom role. They do not expand the AI development session's privileges.
+`/admin-users` stays global admin/super-only; grant configuration is super-only.
+
 Before handing off to another plugin skill, summarize without secrets:
 
 - Confirmed environment and API base.

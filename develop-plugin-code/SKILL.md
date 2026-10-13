@@ -341,6 +341,14 @@ PATCH {ApiBase}/language-pack/{language_key}
 
 HTML 端 locale 對應：`zh-TW` 讀 `name`，`en-US` 讀 `enUS`，`ja-JP` 讀 `jaJP`。不要把語系文字只硬編在 HTML 中。
 
+## 選用的使用者註冊與維護流程
+
+若需求是 API 註冊、plugin 內含自訂欄位的使用者維護介面，或由 super 將限定
+tenant 的帳號管理授權給自訂 App Shell role，先讀
+[`manage-plugin-users`](../manage-plugin-users/SKILL.md)。這是選用業務流程，
+不預設建立任何特定角色。以目前使用者 session 呼叫核心 `/tenant-users`；
+不要以直接寫 users collection、虛構 handler roles 或內嵌管理員 token 代替授權。
+
 ## 進階自訂 Collection 操作歷史紀錄 API
 
 若常規 Generate Code history 已符合需求，不要重寫。只有需要額外聚合、filter、欄位遮罩或特殊授權時，才依本節建立 companion module 或明確覆寫 generated version，並在需求文件記錄後續再次 Generate Code 可能覆蓋自訂版本。

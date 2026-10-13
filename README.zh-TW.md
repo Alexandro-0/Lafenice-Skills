@@ -134,6 +134,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | [`configure-website-entry`](configure-website-entry/SKILL.md) | 管理選單分類、頁面入口、前端路由與 Gateway 驗證設定。 |
 | [`customize-lafenice-shell`](customize-lafenice-shell/SKILL.md) | 透過 Code Registry 自訂頂欄／側邊欄 HTML，套用固定版本、驗證及還原。 |
 | [`configure-language-settings`](configure-language-settings/SKILL.md) | 設定語系、預設語言與 Plugin Language Pack。 |
+| [`manage-plugin-users`](manage-plugin-users/SKILL.md) | API 註冊、自訂 profile 欄位的使用者維護介面，以及 super 授予自訂 App Shell 角色的選用 tenant 使用者管理流程。 |
 | [`manage-plugin-settings`](manage-plugin-settings/SKILL.md) | 管理 Plugin 自訂角色與加密 App Env；不包含使用者角色指派。 |
 | [`manage-plugin-schedulers`](manage-plugin-schedulers/SKILL.md) | 管理 cron / interval / date / startup 排程及啟停狀態。 |
 | [`send-lafenice-email`](send-lafenice-email/SKILL.md) | 透過 Gmail 整合寄信，支援逗號分隔收件者及部分成功處理；要求 admin／super JWT，ai-only 與 API Key 不適用。 |

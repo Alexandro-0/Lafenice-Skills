@@ -64,6 +64,14 @@ The archive must be the unchanged response from `/plugin-export/download`, not a
 
 ## Definition of done
 
+For requirements involving API registration, custom user profile maintenance UI,
+or optional tenant-scoped management by a super-authorized custom App Shell role,
+include [`manage-plugin-users`](../manage-plugin-users/SKILL.md) in the workflow.
+Do not assume a role named `tenant_admin` exists or is built in. Provisioning
+grants/accounts requires the corresponding authorized runtime identity, separate
+from AI code development. Document destination-local grant setup in delivery;
+Plugin Export/Import does not transfer these security grants.
+
 Report completion only when:
 
 - The deployed plugin inventory satisfies every accepted requirement or the document clearly marks an unresolved blocker.

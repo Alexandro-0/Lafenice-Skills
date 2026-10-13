@@ -13,6 +13,13 @@ Use the in-memory AI JWT for App Env, Plugin Export, and `/admin-roles` operatio
 
 ## Manage custom roles
 
+For public registration, plugin user-maintenance forms with custom profile fields,
+or optional super-granted tenant account management, use
+[`manage-plugin-users`](../manage-plugin-users/SKILL.md). A custom role definition
+does not itself grant account management. Only super may configure delegation;
+AI role maintenance must not write grants. Grants are deployment-local and are
+not transferred with role definitions in Plugin Export/Import.
+
 Role definitions are plugin resources; user assignments are environment-specific and are not exported.
 
 Run the endpoints below with the verified AI JWT. Keep role-definition maintenance separate from user-role assignment, which still requires `admin` through `/admin-users`.
