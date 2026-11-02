@@ -127,3 +127,7 @@ sh ./start-with-host-volumes.sh
 如果選擇其他 Compose 模式，使用包內對應流程，並自行執行相同的 env 預檢。啟動後檢查容器健康、前端入口與 `/<PROJECT_ROOT>/api/ping`，更新時另確認原有資料與登入功能仍可使用；其他實例應保持正常。
 
 交付客戶實例名稱／ID、索引與 manifest 路徑、Docker 目標、下載檔名與 Drive 更新時間、安裝或更新模式、release、正式 env 與快照位置、merge 的新增／保留／採新版／待確認 keys、入口 URL 及實測結果。成功後依契約更新 manifest，讓未來新對話可按名稱定位。未下載、未啟動、未驗證或未登記的部分如實標示。
+
+## Core 原生 SEO
+
+SEO 由 Core 提供，不依賴 lfx_seo 或 Cloudflare Worker。涉及公開頁面 SEO 時，使用 [configure-public-pages-seo](../configure-public-pages-seo/SKILL.md) 先探測部署能力，再綁定既有內容、檢查、發布與匿名驗證正式網址。第一版 registry-html-v1 只接受固定完整 HTML，不會自動渲染動態 iframe／JS builder；不可把 metadata 設定成功寫成正文可索引或 Google 已收錄。Core 站台設定與發布記錄不在第一版 Plugin archive，搬站後重新綁定與驗證。完整包或分離部署均須確認前端接入與根 robots／Sitemap；不要修改 generated 或新增 SEO Plugin 來替代缺少的 Core 能力。

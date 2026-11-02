@@ -202,3 +202,7 @@ Plugin 封裝保存設定與程式，不是業務資料備份。App Env 匯出�
 歡迎透過 [Issues](https://github.com/Alexandro-0/Lafenice-Skills/issues) 回報契約差異、範例問題或使用情境，也可以提交 Pull Request。
 
 回報時請附上相關 skill、LaFenice 版本、預期與實際行為，以及已移除敏感內容的重現步驟。修改 skill 時請維持清楚的觸發範圍、有效的相對連結，並同步更新受影響的 references、範例與本頁索引。
+
+## Core native SEO / 核心原生 SEO
+
+[configure-public-pages-seo](configure-public-pages-seo/SKILL.md) configures existing HTML page bindings, publication, robots, Sitemap and Google setup using native Core APIs. No SEO Plugin or Worker is required. Probe deployed capabilities first; v1 supports fixed complete HTML, not dynamic iframe rendering. / 先探測核心能力，再設定與驗證；不可把設定完成當成 Google 已收錄。

@@ -484,3 +484,7 @@ get_request_context` is a supported platform helper. Read `path_params`,
 signature. Missing context (for example Registry preview) must be handled.
 Parameters are untrusted resource selectors; never mutate authentication or tenant
 context using them. See [dynamic page routes](dynamic-page-routes.md).
+
+## Native Core SEO v1
+
+SEO belongs to Core. See [the deployed contract](../../configure-public-pages-seo/references/public-pages-contract.md). Probe capabilities before use; fixed complete Registry HTML is supported, dynamic JS/iframe rendering is not yet supported. Site SEO settings/publication records are not part of the current Plugin archive; do not invent an SEO archive section or copy source version IDs between deployments. No lfx_seo installation is required.

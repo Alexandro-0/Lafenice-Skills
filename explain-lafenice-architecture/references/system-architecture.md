@@ -143,3 +143,7 @@ Media Core 是原生媒體能力：保存來源與錄影索引、處理 action A
 | 背景與 AI | `LaFeniceBackend/services/scheduler.py`、`LaFeniceBackend/services/mqtt_listeners.py`、`LaFeniceBackend/services/agents.py`、`LaFeniceBackend/docs/agent_management.md` |
 | 即時事件 | `LaFeniceBackend/services/frontend_events.py`、`LaFeniceBackend/docs/frontend_events.md`、`LaFeniceBackend/services/dev_messages.py` |
 | 媒體 | `LaFeniceBackend/services/media_core/`、`LaFeniceBackend/docs/media-core.md` |
+
+## Core SEO public HTML
+
+SEO is native Core functionality, not an lfx_seo dependency. Nginx/Vite dispatch explicit public paths to Core before App Shell; complete fixed Registry HTML is composed with Core metadata, robots and Sitemap. Site settings/publication records are deployment-local. Dynamic JS/iframe rendering remains a Core work item, not an SEO Plugin installation step. See [deployed SEO contract](../../configure-public-pages-seo/references/public-pages-contract.md).

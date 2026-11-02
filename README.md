@@ -203,3 +203,7 @@ Useful references:
 Use [Issues](https://github.com/Alexandro-0/Lafenice-Skills/issues) to report contract discrepancies, example problems, or use cases. Pull requests are also welcome.
 
 Include the relevant skill, LaFenice version, expected and actual behavior, and reproduction steps with sensitive information removed. When updating a skill, keep its invocation scope clear, maintain valid relative links, and update affected references, examples, and this catalog.
+
+## Core native SEO / 核心原生 SEO
+
+[configure-public-pages-seo](configure-public-pages-seo/SKILL.md) configures existing HTML page bindings, publication, robots, Sitemap and Google setup using native Core APIs. No SEO Plugin or Worker is required. Probe deployed capabilities first; v1 supports fixed complete HTML, not dynamic iframe rendering. / 先探測核心能力，再設定與驗證；不可把設定完成當成 Google 已收錄。

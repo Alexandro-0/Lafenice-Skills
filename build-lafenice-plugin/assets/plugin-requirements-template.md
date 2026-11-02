@@ -120,3 +120,7 @@ Preview/import warnings and resolution:
 
 - <assumption or accepted limitation>
 - User-role assignments, business data, uploaded files, and redacted environment values are not included in the plugin archive.
+
+## Native Core SEO acceptance (when public SEO is required)
+
+Record deployed Core capability, content module, concrete public URL, publication revision, anonymous original HTML/H1/body/canonical evidence, robots MIME and Sitemap inclusion. Distinguish source checks, real public output and Google indexing. If dynamic rendering is unavailable, mark it incomplete rather than substituting an iframe or installing an SEO Plugin. Destination site settings are separate from the Plugin archive and require re-binding.

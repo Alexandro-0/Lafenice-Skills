@@ -111,3 +111,7 @@ HTML 是公開頁殼，敏感資料不能直接嵌在其中。UI 的 auth_requir
 query 保留、切換參數、固定 API 及原有 CRUD、405／401、路由遮蔽。
 Plugin archive 的 gateway_routes 保留原始模板鍵及 plugin 歸屬；目標 core 也需支援
 此功能。匯入／重啟後重新驗證具體 URL，不以匯入 HTTP 200 代替功能驗證。
+
+## Native Core SEO v1
+
+SEO belongs to Core. See [the deployed contract](../../configure-public-pages-seo/references/public-pages-contract.md). Probe capabilities before use; fixed complete Registry HTML is supported, dynamic JS/iframe rendering is not yet supported. Site SEO settings/publication records are not part of the current Plugin archive; do not invent an SEO archive section or copy source version IDs between deployments. No lfx_seo installation is required.

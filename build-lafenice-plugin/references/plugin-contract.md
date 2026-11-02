@@ -171,3 +171,7 @@ Finish a build with two primary files sharing the same plugin/version stem:
 ```
 
 The tarball must be the unchanged `/plugin-export/download` response and must pass schema/checksum inspection. The requirements document must use the bundled template and contain the final deployed inventory, requirement ids, acceptance criteria, API/browser results, traceability, export counts/warnings, and archive SHA-256. Loose Code Registry source files are not a substitute for the export archive.
+
+## Native Core SEO v1
+
+SEO belongs to Core. See [the deployed contract](../../configure-public-pages-seo/references/public-pages-contract.md). Probe capabilities before use; fixed complete Registry HTML is supported, dynamic JS/iframe rendering is not yet supported. Site SEO settings/publication records are not part of the current Plugin archive; do not invent an SEO archive section or copy source version IDs between deployments. No lfx_seo installation is required.

@@ -500,3 +500,7 @@ Invoke-RestMethod `
 ```
 
 For `PATCH` requests, use the same pattern with `-Method Patch`.
+
+## Core 原生 SEO
+
+SEO 由 Core 提供，不依賴 lfx_seo 或 Cloudflare Worker。涉及公開頁面 SEO 時，使用 [configure-public-pages-seo](../configure-public-pages-seo/SKILL.md) 先探測部署能力，再綁定既有內容、檢查、發布與匿名驗證正式網址。第一版 registry-html-v1 只接受固定完整 HTML，不會自動渲染動態 iframe／JS builder；不可把 metadata 設定成功寫成正文可索引或 Google 已收錄。Core 站台設定與發布記錄不在第一版 Plugin archive，搬站後重新綁定與驗證。完整包或分離部署均須確認前端接入與根 robots／Sitemap；不要修改 generated 或新增 SEO Plugin 來替代缺少的 Core 能力。

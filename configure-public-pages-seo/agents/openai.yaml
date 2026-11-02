@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaFenice Core SEO"
+  short_description: "Configure native Core SEO, public HTML and search setup"
+  default_prompt: "Use $configure-public-pages-seo to configure and verify native SEO for my existing LaFenice pages."

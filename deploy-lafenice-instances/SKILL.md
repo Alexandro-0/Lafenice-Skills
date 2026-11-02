@@ -60,3 +60,7 @@ description: 依客戶指定的實例名稱列出、登記、改名、部署與�
 更新缺失原資料時停止，不建立空目錄／新 volume 冒充復原；不以 down -v、prune 或刪資料解決衝突。同一資料不可由兩套資料庫同時寫入。索引與 manifest 是定位紀錄，實際 Docker 掛載與 daemon 每次都要核對。
 
 後續統一部署工具設計與驗收情境見 [方案與驗收](references/solution-design.md)。
+
+## Core 原生 SEO
+
+SEO 由 Core 提供，不依賴 lfx_seo 或 Cloudflare Worker。涉及公開頁面 SEO 時，使用 [configure-public-pages-seo](../configure-public-pages-seo/SKILL.md) 先探測部署能力，再綁定既有內容、檢查、發布與匿名驗證正式網址。第一版 registry-html-v1 只接受固定完整 HTML，不會自動渲染動態 iframe／JS builder；不可把 metadata 設定成功寫成正文可索引或 Google 已收錄。Core 站台設定與發布記錄不在第一版 Plugin archive，搬站後重新綁定與驗證。完整包或分離部署均須確認前端接入與根 robots／Sitemap；不要修改 generated 或新增 SEO Plugin 來替代缺少的 Core 能力。
