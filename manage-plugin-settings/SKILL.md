@@ -5,6 +5,16 @@ description: Manage exportable supporting settings for a LaFenice product plugin
 
 # Manage LaFenice Plugin Settings
 
+## Keep existing project specifications current
+
+When the authorized environment has a project in the knowledge center, use
+[manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read the relevant
+effective requirements, data lifecycles and role boundaries before changes. Update
+affected specifications and work handoffs afterward. Data lifecycles describe Plugin
+business data states and transitions; development progress belongs in handoff documents.
+If the API is unavailable, preserve established document locations and report that
+synchronization was unavailable. Do not create a project merely to run this skill.
+
 ## Enforce the connection gate
 
 Before planning or changing settings, use `get-plugin-edit-access` to verify the exact project URL and role: `ai` account/password supplied by the user, perform RSA-OAEP-256 encrypted login, and confirm `/auth-me` includes `ai`. If any value is missing, ask and stop. Assume no repository, source code, container, deployment files, or database access. Do not use localhost, API Keys, default credentials, inherited browser sessions, or credentials found outside the user's explicit input.

@@ -26,6 +26,21 @@ Do not restart from PRD merely because PRD is phase 1. Enter at the earliest pha
 
 ## Preserve resumability
 
+When the authorized deployment has a development project in the Core knowledge center,
+use [manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read its effective
+specifications, relevant data lifecycles and work handoffs before edits, and update affected
+documents and work handoffs afterward. A knowledge `lifecycle` document describes Plugin
+business data states and transitions, not these development stages. Preserve the outer
+Project identity even when it spans multiple Plugins.
+If the API is unavailable, keep existing local document conventions; do not invent a remote
+project or claim local notes were synchronized.
+
+For an authorized deployed-API implementation, preserve its Change Activity task ID
+and follow [development activity tracking](../get-plugin-edit-access/references/change-activities.md).
+Reuse the task only for the same owner, environment and active tenant; closed tasks
+remain historical. Local repository and documentation-only work does not require a
+remote activity session.
+
 Use the repository's existing project tracker or document conventions. If work is intentionally split across sessions and no equivalent tracker exists, copy [assets/plugin-lifecycle-state-template.md](assets/plugin-lifecycle-state-template.md) into the Plugin's documentation area and maintain it as a compact handoff record.
 
 Record:

@@ -5,6 +5,20 @@ description: Build, upload, test, and export a LaFenice product plugin against a
 
 # Build a Production LaFenice Plugin
 
+For authorized remote mutations, use [development activity tracking](../get-plugin-edit-access/references/change-activities.md)
+to group this build's API changes into one task. Reuse an existing task for the same
+owner, environment and active tenant; close it with the actual validation outcome.
+
+## Keep existing project specifications current
+
+When the authorized environment has a project in the knowledge center, use
+[manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read the relevant
+effective requirements, data lifecycles and role boundaries before changes. Update
+affected specifications and work handoffs afterward. Data lifecycles describe Plugin
+business data states and transitions; development progress belongs in handoff documents.
+If the API is unavailable, preserve established document locations and report that
+synchronization was unavailable. Do not create a project merely to run this skill.
+
 ## Use the production-only operating model
 
 Assume the agent has only this skill bundle, the user's requirements, network access to the deployed system, and optional browser control. Do not require or inspect application source code, a Git repository, Docker image contents, container volumes, source maps, build artifacts, database access, or deployment configuration.

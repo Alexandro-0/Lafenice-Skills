@@ -5,6 +5,16 @@ description: 讓 Codex 在無 source-code access 的 production 環境中，透�
 
 # 網站入口設定
 
+## Keep existing project specifications current
+
+When the authorized environment has a project in the knowledge center, use
+[manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read the relevant
+effective requirements, data lifecycles and role boundaries before changes. Update
+affected specifications and work handoffs afterward. Data lifecycles describe Plugin
+business data states and transitions; development progress belongs in handoff documents.
+If the API is unavailable, preserve established document locations and report that
+synchronization was unavailable. Do not create a project merely to run this skill.
+
 ## 強制連線前置條件
 
 開始規劃或修改網站入口前，先用 `get-plugin-edit-access` 取得使用者明確提供的專案 URL 與 role: `ai` 帳號密碼，執行 RSA-OAEP-256 加密登入，並確認 `/auth-me` 包含 `ai`；缺少任一項就詢問並停止。不得使用 localhost、API Key、預設帳密或其他環境的憑證。

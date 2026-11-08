@@ -121,6 +121,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | Skill | 適用工作 |
 | --- | --- |
 | [`orchestrate-lafenice-plugin-lifecycle`](orchestrate-lafenice-plugin-lifecycle/SKILL.md) | 串接需求、可行性、設計、實作、測試與文件；支援單一階段、接續工作和局部修正。 |
+| [`manage-project-knowledge`](manage-project-knowledge/SKILL.md) | 維護專案需求與設計、Plugin 資料生命週期、角色權限與 agent 工作接續，透過 Core 文件中心保存版本。 |
 | [`build-lafenice-plugin`](build-lafenice-plugin/SKILL.md) | 透過已部署 API 完整建置、測試與匯出 Plugin，交付封裝和需求文件。 |
 | [`get-plugin-edit-access`](get-plugin-edit-access/SKILL.md) | 確認專案 URL、登入、驗證 `ai` 角色並預檢開發 API。 |
 | [`convert-external-schema-to-mdc`](convert-external-schema-to-mdc/SKILL.md) | 將 JSON Schema、SQL、OpenAPI、樣本資料或文字結構轉成 MDC 設計稿。 |

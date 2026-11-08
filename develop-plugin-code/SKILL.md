@@ -5,6 +5,16 @@ description: 在無法查看 LaFenice backend/frontend source code 的 productio
 
 # 開發 Plugin 程式碼
 
+## Keep existing project specifications current
+
+When the authorized environment has a project in the knowledge center, use
+[manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read the relevant
+effective requirements, data lifecycles and role boundaries before changes. Update
+affected specifications and work handoffs afterward. Data lifecycles describe Plugin
+business data states and transitions; development progress belongs in handoff documents.
+If the API is unavailable, preserve established document locations and report that
+synchronization was unavailable. Do not create a project merely to run this skill.
+
 ## 強制連線前置條件
 
 開始分析或撰寫程式碼前，必須已由 `get-plugin-edit-access` 確認使用者明確提供的專案 URL 與 role: `ai` 帳號密碼，完成 RSA-OAEP-256 加密登入，並確認 `/auth-me` 包含 `ai`；缺少任一項就先詢問並停止。不得套用 localhost、API Key、預設帳密或其他環境的憑證。
@@ -26,6 +36,8 @@ description: 在無法查看 LaFenice backend/frontend source code 的 productio
 若只是建立或調整 collection metadata，優先使用 `manage-metadata-driven-collection`。若缺少 URL、role: `ai` 帳號密碼、JWT session 或權限資訊，先使用 `get-plugin-edit-access`。
 
 ## 核心規則
+
+- 已授權的遠端修改沿用本次任務的活動編號與 API wrapper，並回報實際使用的 Skills；參見 [開發任務追蹤](../get-plugin-edit-access/references/change-activities.md)。若尚無任務，先探測該環境是否支援；不重複建立既有任務。
 
 - 一律以 API 為主：`/_code/modules`、`/_code/modules/{module_key}/versions`、`/collection-config`、`/language-pack`、必要時 `/_gateway/config/routes/{endpoint}/{method}`。
 - API base 只能使用前置檢查確認的值，不設定 localhost 預設值。

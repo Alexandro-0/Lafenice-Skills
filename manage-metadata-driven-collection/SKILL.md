@@ -5,6 +5,16 @@ description: 在無 source-code access 的 production 環境中，透過 deploye
 
 # 管理 Metadata-driven Collection
 
+## Keep existing project specifications current
+
+When the authorized environment has a project in the knowledge center, use
+[manage-project-knowledge](../manage-project-knowledge/SKILL.md) to read the relevant
+effective requirements, data lifecycles and role boundaries before changes. Update
+affected specifications and work handoffs afterward. Data lifecycles describe Plugin
+business data states and transitions; development progress belongs in handoff documents.
+If the API is unavailable, preserve established document locations and report that
+synchronization was unavailable. Do not create a project merely to run this skill.
+
 ## 套用 production gate
 
 開始遠端設計、盤點或寫入前，先使用 `get-plugin-edit-access` 取得並驗證：

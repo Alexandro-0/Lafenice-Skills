@@ -122,6 +122,7 @@ Code Registry, MDC, and MongoDB work together, and how Core and Plugins divide r
 | Skill | Use it for |
 | --- | --- |
 | [`orchestrate-lafenice-plugin-lifecycle`](orchestrate-lafenice-plugin-lifecycle/SKILL.md) | Coordinate requirements, feasibility, design, implementation, testing, and documentation; support individual stages, resumed work, and targeted fixes. |
+| [`manage-project-knowledge`](manage-project-knowledge/SKILL.md) | Maintain versioned project specifications, Plugin data lifecycles, role permissions and agent handoffs through the Core knowledge center. |
 | [`build-lafenice-plugin`](build-lafenice-plugin/SKILL.md) | Build, test, and export a complete Plugin through deployed APIs, delivering its package and requirements document. |
 | [`get-plugin-edit-access`](get-plugin-edit-access/SKILL.md) | Confirm the project URL, authenticate, verify the `ai` role, and preflight development APIs. |
 | [`convert-external-schema-to-mdc`](convert-external-schema-to-mdc/SKILL.md) | Convert JSON Schema, SQL, OpenAPI, sample data, or textual structures into an MDC design. |

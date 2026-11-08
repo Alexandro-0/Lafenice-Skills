@@ -61,6 +61,11 @@ If login returns `400 password_ciphertext is invalid.`, fetch a fresh public key
 
 ## Use and refresh the AI session
 
+For authorized remote mutations, follow [development activity tracking](references/change-activities.md)
+after login. Create one owner-bound task when supported and use its header for
+subsequent API operations. Report missing support explicitly; do not establish
+a remote session solely for tracking offline or documentation-only work.
+
 Send the access token on every protected backend call:
 
 ```http
