@@ -25,6 +25,8 @@
 
 ### 1. 安裝 skills
 
+開發自訂 Plugin 頁面時，可指定「只參考 EM-UI 的表格布局」或沿用專案樣式。EM-UI 預設不套用。維護者收到新版 ZIP 時，請依[更新 EM-UI 設計參考](develop-plugin-code/references/em-ui/update.md)替換隨附檔案。
+
 如果你的 Codex 提供 `skill-installer`，可直接提出以下請求：
 
 ```text

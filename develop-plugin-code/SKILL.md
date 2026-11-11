@@ -35,6 +35,20 @@ synchronization was unavailable. Do not create a project merely to run this skil
 
 若只是建立或調整 collection metadata，優先使用 `manage-metadata-driven-collection`。若缺少 URL、role: `ai` 帳號密碼、JWT session 或權限資訊，先使用 `get-plugin-edit-access`。
 
+## UI 設計參考（選用）
+
+決定 UI 配色前，必須先參考目標專案目前生效的 app shell 樣式。
+
+1. 從目標專案的 **API 基址**讀取 `GET <api-base>/style-settings`，保留部署子路徑。例如專案入口為 `https://localhost:7777/lafenice-dev`、API 基址為 `https://localhost:7777/lafenice-dev/api` 時，應讀取 `https://localhost:7777/lafenice-dev/api/style-settings`。
+2. 確認請求成功、回應可解析為 JSON，且 `item.theme.colors[mode]` 含有所需色票，例如 `bg`、`surface`、`text`、`line`、`accent`。採用目標畫面的主題模式；無個別模式資訊時使用 `item.theme.defaultMode`。依這組色票選用背景、表面、文字、邊框與強調色，並核對品牌與 shell 設定。使用者已明確指定的配色（含既有頁面的配色要求）在指定範圍內優先。
+3. 若收到 HTML（即使 HTTP 200），先從目標專案的 API 設定或瀏覽器網路請求核對 API 基址、部署子路徑與最終請求網址，再向正確端點重試。仍無法取得有效色票時，說明缺少的資料，可向使用者索取畫面或色票。
+
+選用 EM-UI 的布局或元件仍須遵守上述配色規則。例如「只參考 EM-UI 的表格」可採用其列高、欄寬與間距；表頭、資料列、分隔線及滑鼠移入狀態仍依 app shell 配色。只有使用者特別指定採用 EM-UI 色票時，才在指定範圍採用該色票。
+
+預設沿用專案的 UI 規範。新增頁面或重新設計版面時，若視覺方向尚未決定，可以問一次「這頁要沿用專案樣式，還是參考 EM-UI 的版面或元件？」使用者未選用時沿用專案樣式即可；局部修正無須例行詢問。
+
+使用者明確選用，或已確認的設計規格指定 EM-UI 時，才讀取[隨附設計參考](references/em-ui/current.html)。先找 `AGENT BUILD CONTRACT`，再依任務搜尋 `Forms`、`Tables` 或 `Page composition` 等章節。只取選定的布局或元件，以頁面所需的 HTML、CSS 和互動實作。保留專案指定的品牌、配色、語系與 LaFenice runtime 契約；不要整頁複製展示頁或將其載為執行期依賴。
+
 ## 核心規則
 
 - 已授權的遠端修改沿用本次任務的活動編號與 API wrapper，並回報實際使用的 Skills；參見 [開發任務追蹤](../get-plugin-edit-access/references/change-activities.md)。若尚無任務，先探測該環境是否支援；不重複建立既有任務。
