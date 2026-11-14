@@ -151,6 +151,7 @@ Code Registry、MDC 與 MongoDB 的關係，以及 Core / Plugin 的分工。
 | --- | --- |
 | [`explain-lafenice-architecture`](explain-lafenice-architecture/SKILL.md) | 架構導覽、元件責任、資料流與 Core / Plugin 邊界說明。 |
 | [`install-lafenice`](install-lafenice/SKILL.md) | 下載最新 ZIP，依客戶自訂名稱安裝或更新，沿用登記的正式設定與資料。 |
+| [`manage-custom-containers`](manage-custom-containers/SKILL.md) | 在既有實例建立、更新與移除自訂容器，匯入匯出 Compose，並唯讀查詢機器與容器狀態。 |
 | [`deploy-lafenice-instances`](deploy-lafenice-instances/SKILL.md) | 從 OS 固定索引找回實例，登記、改名與維護，避免 env、Docker 目標及資料混用。 |
 | [`adopt-lafenice-instance`](adopt-lafenice-instance/SKILL.md) | 舊客戶首次納管：協助找出既有部署，命名、備份及建立索引，不重裝或搬資料。 |
 

@@ -1,0 +1,3 @@
+interface:
+  display_name: "LaFenice 自訂容器"
+  short_description: "管理自訂容器、匯入匯出 Compose，並查詢目標實例的機器與容器狀態"
